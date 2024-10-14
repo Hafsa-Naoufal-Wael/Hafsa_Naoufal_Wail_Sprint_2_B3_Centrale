@@ -33,6 +33,7 @@
   "keyToString": {
     "Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
     "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
@@ -61,7 +62,7 @@
       <updated>1728902139588</updated>
       <workItem from="1728902140813" duration="65000" />
       <workItem from="1728902250103" duration="838000" />
-      <workItem from="1728903106082" duration="2175000" />
+      <workItem from="1728903106082" duration="618000" />
     </task>
     <servers />
   </component>
