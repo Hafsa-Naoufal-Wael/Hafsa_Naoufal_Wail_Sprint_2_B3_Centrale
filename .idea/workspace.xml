@@ -10,10 +10,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="23f56f0b-cde2-418d-b05d-af2ce21cfd27" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/centrale/repository/impl/Repository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/centrale/repository/ProductRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/centrale/repository/ProductRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/centrale/repository/impl/ProductRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/centrale/repository/impl/ProductRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/centrale/service/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/centrale/service/ProductService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,7 +58,7 @@
     "Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "Tomcat Server.Tomcat 9.0.95.executor": "Run",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "ProductRepository",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/ssngn/Documents/Youcode/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale",
     "list.type.of.created.stylesheet": "CSS",
