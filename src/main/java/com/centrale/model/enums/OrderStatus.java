@@ -1,4 +1,5 @@
 package com.centrale.model.enums;
 
-public class OrderStatus {
+public enum OrderStatus {
+    PENDING, PROCESSING, COMPLETED, CANCELLED
 }

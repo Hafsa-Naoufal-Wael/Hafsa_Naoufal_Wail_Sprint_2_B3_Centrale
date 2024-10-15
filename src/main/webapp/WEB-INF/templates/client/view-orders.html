@@ -6,6 +6,13 @@
 </head>
 <body>
     <div th:fragment="content">
+        <h1 class="text-3xl font-bold mb-4">Your Orders</h1>
+        <div th:each="order : ${orders}" class="bg-white p-4 rounded shadow mb-4">
+            <h2 th:text="${'Order #' + order.id}" class="text-xl font-semibold mb-2"></h2>
+            <p th:text="${'Date: ' + order.orderDate}" class="text-gray-600"></p>
+            <p th:text="${'Status: ' + order.status}" class="text-gray-600"></p>
+            <a th:href="@{/orders/detail(id=${order.id})}" class="text-blue-500 hover:underline">View Details</a>
+        </div>
     </div>
 </body>
 </html>

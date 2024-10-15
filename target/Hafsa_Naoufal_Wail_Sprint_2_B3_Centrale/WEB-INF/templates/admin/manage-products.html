@@ -2,38 +2,35 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Manage Products</title>
+    <title th:text="${pageTitle}"></title>
 </head>
 <body>
-    <div th:replace="layouts/main-layout :: content">
-        <h1>Manage Products</h1>
-        <table>
+    <div th:fragment="content">
+        <h1 class="text-3xl font-bold mb-4">Manage Products</h1>
+        <a href="/admin/products/add" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 mb-4 inline-block">Add New Product</a>
+        <table class="w-full bg-white shadow-md rounded mb-4">
             <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Price</th>
-                    <th>Stock</th>
-                    <th>Actions</th>
+                <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                    <th class="py-3 px-6 text-left">ID</th>
+                    <th class="py-3 px-6 text-left">Name</th>
+                    <th class="py-3 px-6 text-left">Price</th>
+                    <th class="py-3 px-6 text-left">Stock</th>
+                    <th class="py-3 px-6 text-center">Actions</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr th:each="product : ${products}">
-                    <td th:text="${product.name}">Product Name</td>
-                    <td th:text="${product.description}">Product Description</td>
-                    <td th:text="${'$' + product.price}">$0.00</td>
-                    <td th:text="${product.stock}">0</td>
-                    <td>
-                        <a th:href="@{/admin/product/edit/{id}(id=${product.id})}">Edit</a>
-                        <form th:action="@{/admin/product/delete}" method="post" style="display: inline;">
-                            <input type="hidden" name="productId" th:value="${product.id}" />
-                            <button type="submit">Delete</button>
-                        </form>
+            <tbody class="text-gray-600 text-sm font-light">
+                <tr th:each="product : ${products}" class="border-b border-gray-200 hover:bg-gray-100">
+                    <td th:text="${product.id}" class="py-3 px-6 text-left whitespace-nowrap"></td>
+                    <td th:text="${product.name}" class="py-3 px-6 text-left"></td>
+                    <td th:text="${#numbers.formatCurrency(product.price)}" class="py-3 px-6 text-left"></td>
+                    <td th:text="${product.stock}" class="py-3 px-6 text-left"></td>
+                    <td class="py-3 px-6 text-center">
+                        <a th:href="@{/admin/products/edit(id=${product.id})}" class="text-blue-500 hover:text-blue-700 mr-2">Edit</a>
+                        <a th:href="@{/admin/products/delete(id=${product.id})}" class="text-red-500 hover:text-red-700" onclick="return confirm('Are you sure you want to delete this product?')">Delete</a>
                     </td>
                 </tr>
             </tbody>
         </table>
-        <a th:href="@{/admin/product/add}">Add New Product</a>
     </div>
 </body>
 </html>

@@ -10,8 +10,156 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="23f56f0b-cde2-418d-b05d-af2ce21cfd27" name="Changes" comment="">
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/src/main/java/com/centrale/model/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/centrale/model/entity/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/centrale/model/enums/Role.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/centrale/model/enums/Role.java" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vscode/settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/.vscode/settings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/centrale/controller/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/centrale/controller/AdminController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/centrale/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/centrale/controller/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/centrale/controller/CartController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/centrale/controller/CartController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/centrale/controller/ClientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/centrale/controller/ClientController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/centrale/controller/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/centrale/controller/HomeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/centrale/controller/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/centrale/controller/OrderController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/centrale/controller/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/centrale/controller/ProductController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/centrale/model/entity/Admin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/centrale/model/entity/Admin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/centrale/model/entity/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/centrale/model/entity/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/centrale/model/entity/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/centrale/model/entity/Order.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/centrale/model/entity/OrderItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/centrale/model/entity/OrderItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/centrale/model/entity/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/centrale/model/entity/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/centrale/model/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/centrale/model/entity/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/centrale/model/enums/OrderStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/centrale/model/enums/OrderStatus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/centrale/model/enums/Role.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/centrale/repository/OrderItemRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/centrale/repository/OrderRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/centrale/repository/OrderRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/centrale/repository/ProductRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/centrale/repository/ProductRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/centrale/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/centrale/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/centrale/repository/impl/OrderItemRepositoryImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/centrale/repository/impl/OrderRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/centrale/repository/impl/OrderRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/centrale/repository/impl/ProductRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/centrale/repository/impl/ProductRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/centrale/repository/impl/Repository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/centrale/repository/impl/UserRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/centrale/repository/impl/UserRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/centrale/service/OrderItemService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/centrale/service/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/centrale/service/OrderService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/centrale/service/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/centrale/service/ProductService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/centrale/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/centrale/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/db.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/db.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/templates/admin/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/templates/admin/dashboard.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/templates/admin/manage-orders.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/templates/admin/manage-orders.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/templates/admin/manage-products.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/templates/admin/manage-products.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/templates/admin/manage-users.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/templates/admin/manage-users.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/templates/auth/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/templates/auth/register.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/templates/client/checkout.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/templates/client/checkout.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/templates/client/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/templates/client/dashboard.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/templates/client/order-confirmation.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/templates/client/order-confirmation.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/templates/client/product-detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/templates/client/product-detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/templates/client/shopping-cart.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/templates/client/shopping-cart.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/templates/client/user-profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/templates/client/user-profile.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/templates/client/view-orders.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/templates/client/view-orders.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/templates/client/view-products.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/templates/error/404.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/templates/error/404.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/templates/error/500.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/templates/error/500.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/templates/fragments/footer.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/templates/fragments/footer.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/templates/fragments/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/templates/fragments/header.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/templates/fragments/sidebar.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/templates/fragments/sidebar.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/templates/layouts/main-layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/templates/layouts/main-layout.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale.war" beforeDir="false" afterPath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale.war" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/classes/com/centrale/controller/AdminController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/classes/com/centrale/controller/AuthController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/classes/com/centrale/controller/CartController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/classes/com/centrale/controller/CartController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/classes/com/centrale/controller/ClientController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/classes/com/centrale/controller/HomeController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/classes/com/centrale/controller/HomeController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/classes/com/centrale/controller/OrderController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/classes/com/centrale/controller/OrderController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/classes/com/centrale/controller/ProductController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/classes/com/centrale/controller/ProductController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/classes/com/centrale/filter/LoggingFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/classes/com/centrale/filter/LoggingFilter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/classes/com/centrale/model/entity/Admin.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/classes/com/centrale/model/entity/Admin.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/classes/com/centrale/model/entity/Client.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/classes/com/centrale/model/entity/Client.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/classes/com/centrale/model/entity/Order.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/classes/com/centrale/model/entity/Order.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/classes/com/centrale/model/entity/OrderItem.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/classes/com/centrale/model/entity/OrderItem.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/classes/com/centrale/model/entity/Product.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/classes/com/centrale/model/entity/Product.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/classes/com/centrale/model/entity/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/classes/com/centrale/model/entity/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/classes/com/centrale/model/enums/OrderStatus.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/classes/com/centrale/model/enums/OrderStatus.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/classes/com/centrale/model/enums/Role.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/classes/com/centrale/repository/OrderItemRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/classes/com/centrale/repository/OrderRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/classes/com/centrale/repository/OrderRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/classes/com/centrale/repository/ProductRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/classes/com/centrale/repository/ProductRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/classes/com/centrale/repository/UserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/classes/com/centrale/repository/UserRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/classes/com/centrale/repository/impl/OrderItemRepositoryImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/classes/com/centrale/repository/impl/OrderRepositoryImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/classes/com/centrale/repository/impl/OrderRepositoryImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/classes/com/centrale/repository/impl/ProductRepositoryImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/classes/com/centrale/repository/impl/ProductRepositoryImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/classes/com/centrale/repository/impl/UserRepositoryImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/classes/com/centrale/repository/impl/UserRepositoryImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/classes/com/centrale/service/OrderItemService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/classes/com/centrale/service/OrderService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/classes/com/centrale/service/OrderService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/classes/com/centrale/service/ProductService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/classes/com/centrale/service/ProductService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/classes/com/centrale/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/classes/com/centrale/service/UserService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/classes/db.sql" beforeDir="false" afterPath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/classes/db.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/classes/hibernate.cfg.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/classes/hibernate.cfg.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/templates/admin/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/templates/admin/dashboard.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/templates/admin/manage-orders.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/templates/admin/manage-orders.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/templates/admin/manage-products.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/templates/admin/manage-products.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/templates/admin/manage-users.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/templates/admin/manage-users.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/templates/auth/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/templates/auth/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/templates/auth/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/templates/auth/register.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/templates/client/checkout.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/templates/client/checkout.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/templates/client/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/templates/client/dashboard.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/templates/client/order-confirmation.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/templates/client/order-confirmation.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/templates/client/product-detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/templates/client/product-detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/templates/client/shopping-cart.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/templates/client/shopping-cart.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/templates/client/user-profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/templates/client/user-profile.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/templates/client/view-orders.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/templates/client/view-orders.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/templates/client/view-products.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/templates/error/404.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/templates/error/404.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/templates/error/500.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/templates/error/500.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/templates/fragments/footer.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/templates/fragments/footer.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/templates/fragments/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/templates/fragments/header.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/templates/fragments/sidebar.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/templates/fragments/sidebar.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/templates/layouts/main-layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/templates/layouts/main-layout.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale/WEB-INF/web.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/centrale/controller/AdminController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/centrale/controller/AuthController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/centrale/controller/AuthController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/centrale/controller/CartController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/centrale/controller/CartController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/centrale/controller/ClientController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/centrale/controller/HomeController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/centrale/controller/HomeController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/centrale/controller/OrderController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/centrale/controller/OrderController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/centrale/controller/ProductController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/centrale/controller/ProductController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/centrale/model/entity/Admin.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/centrale/model/entity/Admin.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/centrale/model/entity/Client.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/centrale/model/entity/Client.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/centrale/model/entity/Order.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/centrale/model/entity/Order.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/centrale/model/entity/OrderItem.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/centrale/model/entity/OrderItem.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/centrale/model/entity/Product.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/centrale/model/entity/Product.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/centrale/model/entity/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/centrale/model/entity/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/centrale/model/enums/OrderStatus.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/centrale/model/enums/OrderStatus.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/centrale/model/enums/Role.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/centrale/repository/OrderItemRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/centrale/repository/OrderRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/centrale/repository/OrderRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/centrale/repository/ProductRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/centrale/repository/ProductRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/centrale/repository/UserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/centrale/repository/UserRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/centrale/repository/impl/OrderItemRepositoryImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/centrale/repository/impl/OrderRepositoryImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/centrale/repository/impl/OrderRepositoryImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/centrale/repository/impl/ProductRepositoryImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/centrale/repository/impl/ProductRepositoryImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/centrale/repository/impl/UserRepositoryImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/centrale/repository/impl/UserRepositoryImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/centrale/service/OrderItemService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/centrale/service/OrderService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/centrale/service/OrderService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/centrale/service/ProductService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/centrale/service/ProductService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/centrale/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/centrale/service/UserService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/db.sql" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/db.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/hibernate.cfg.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/hibernate.cfg.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterDir="false" />
+>>>>>>> order_branch
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,6 +199,7 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
+<<<<<<< HEAD
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "DefaultHtmlFileTemplate": "HTML File",
@@ -69,8 +218,31 @@
     "nodejs_package_manager_path": "npm",
     "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices",
     "vue.rearranger.settings.migration": "true"
+=======
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;JavaScript Debug.index.html.executor&quot;: &quot;Run&quot;,
+    &quot;Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;Tomcat Server.Tomcat 9.0.95.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;order__branch&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/ssngn/Documents/Youcode/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.repository.indices&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+>>>>>>> order_branch
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="com.centrale.repository.impl" />
@@ -92,7 +264,7 @@
         </artifact>
       </deployment>
       <server-settings>
-        <option name="BASE_DIRECTORY_NAME" value="4a2be477-46bd-4c4d-b3db-ac74b41ed1be" />
+        <option name="BASE_DIRECTORY_NAME" value="5ddbad93-2fe3-4e31-b4c7-3828c0c9d7f6" />
       </server-settings>
       <predefined_log_file enabled="true" id="Tomcat" />
       <predefined_log_file enabled="true" id="Tomcat Catalina" />
@@ -100,7 +272,7 @@
       <predefined_log_file id="Tomcat Host Manager" />
       <predefined_log_file id="Tomcat Localhost Access" />
       <RunnerSettings RunnerId="Debug">
-        <option name="DEBUG_PORT" value="52247" />
+        <option name="DEBUG_PORT" value="54287" />
       </RunnerSettings>
       <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
         <option name="USE_ENV_VARIABLES" value="true" />
@@ -192,7 +364,11 @@
       <workItem from="1728912529532" duration="2827000" />
       <workItem from="1728919948443" duration="4501000" />
       <workItem from="1728944137810" duration="2649000" />
+<<<<<<< HEAD
       <workItem from="1728989534484" duration="313000" />
+=======
+      <workItem from="1729006764499" duration="1134000" />
+>>>>>>> order_branch
     </task>
     <servers />
   </component>

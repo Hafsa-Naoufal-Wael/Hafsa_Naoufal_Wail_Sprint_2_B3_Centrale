@@ -9,6 +9,15 @@
             "name": "ecommerce_db",
             "database": "ecommerce_db",
             "username": "postgres"
+        },
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "centrale_db",
+            "database": "centrale_db",
+            "username": "postgres"
         }
     ]
 }

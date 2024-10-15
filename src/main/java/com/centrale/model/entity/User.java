@@ -1,34 +1,58 @@
 package com.centrale.model.entity;
 
-import com.centrale.model.enums.Role;
+import java.io.Serializable;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
+import com.centrale.model.enums.UserRole;
 
 @Entity
 @Table(name = "users")
-public class User {
+@Inheritance(strategy = InheritanceType.JOINED)
+public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "first_name", nullable = false, length = 50)
+    @NotBlank
+    @Size(max = 50)
+    @Column(name = "first_name", nullable = false)
     private String firstName;
 
-    @Column(name = "last_name", nullable = false, length = 50)
+    @NotBlank
+    @Size(max = 50)
+    @Column(name = "last_name", nullable = false)
     private String lastName;
 
-    @Column(name = "email", nullable = false, unique = true, length = 100)
+    @NotBlank
+    @Email
+    @Size(max = 100)
+    @Column(unique = true, nullable = false)
     private String email;
 
-    @Column(name = "password", nullable = false, length = 255)
+    @NotBlank
+    @Size(max = 255)
+    @Column(nullable = false)
     private String password;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "role", nullable = false)
-    private Role role;
+    @Column(nullable = false)
+    private UserRole role;
 
-    // Getters and Setters
+    // Getters and setters
     public Long getId() {
         return id;
     }
@@ -69,11 +93,15 @@ public class User {
         this.password = password;
     }
 
-    public Role getRole() {
+    public UserRole getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setRole(UserRole role) {
         this.role = role;
+    }
+
+    public String getFullName() {
+        return firstName + " " + lastName;
     }
 }
