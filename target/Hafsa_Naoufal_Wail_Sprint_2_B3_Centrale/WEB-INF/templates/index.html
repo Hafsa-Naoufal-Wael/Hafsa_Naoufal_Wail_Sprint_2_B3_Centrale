@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to Our Store</title>
+</head>
+<body>
+    <div th:fragment="content">
+        <h1>Welcome to Our Store</h1>
+        <p>Discover our wide range of products!</p>
+        
+        <section>
+            <h2>Featured Products</h2>
+            <div th:if="${not #lists.isEmpty(featuredProducts)}">
+                <div th:each="product : ${featuredProducts}" class="product-card">
+                    <h3 th:text="${product.name}">Product Name</h3>
+                    <p th:text="${product.description}">Product Description</p>
+                    <p th:text="${#numbers.formatCurrency(product.price)}">Price: $0.00</p>
+                    <a th:href="@{/product/{id}(id=${product.id})}" class="btn btn-primary">View Details</a>
+                </div>
+            </div>
+            <p th:unless="${not #lists.isEmpty(featuredProducts)}">No featured products available at the moment.</p>
+        </section>
+        
+        <section>
+            <h2>About Us</h2>
+            <p>We are committed to providing high-quality products and excellent customer service.</p>
+        </section>
+        
+        <section>
+            <h2>Contact Us</h2>
+            <p>If you have any questions, please don't hesitate to reach out to us.</p>
+            <a href="mailto:info@ourstore.com">info@ourstore.com</a>
+        </section>
+    </div>
+</body>
+</html>
