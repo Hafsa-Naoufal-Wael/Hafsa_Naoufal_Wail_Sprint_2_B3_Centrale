@@ -10,8 +10,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="23f56f0b-cde2-418d-b05d-af2ce21cfd27" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/centrale/model/entity/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/centrale/model/entity/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vscode/settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/.vscode/settings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/centrale/controller/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/centrale/controller/OrderController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/centrale/model/entity/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/centrale/model/entity/Order.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/centrale/model/entity/OrderItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/centrale/model/entity/OrderItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/centrale/model/enums/OrderStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/centrale/model/enums/OrderStatus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/centrale/repository/OrderRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/centrale/repository/OrderRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/centrale/repository/impl/OrderRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/centrale/repository/impl/OrderRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/centrale/service/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/centrale/service/OrderService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/db.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/db.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/centrale/controller/OrderController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/centrale/controller/OrderController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/centrale/model/entity/Order.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/centrale/model/entity/Order.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/centrale/model/entity/OrderItem.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/centrale/model/entity/OrderItem.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/centrale/model/enums/OrderStatus.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/centrale/model/enums/OrderStatus.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/centrale/repository/OrderRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/centrale/repository/OrderRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/centrale/repository/impl/OrderRepositoryImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/centrale/repository/impl/OrderRepositoryImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/centrale/service/OrderService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/centrale/service/OrderService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/db.sql" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/db.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,7 +78,7 @@
     "Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "Tomcat Server.Tomcat 9.0.95.executor": "Run",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "git-checkout--b-MC-64-proejct-strecture",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/ssngn/Documents/Youcode/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale",
     "list.type.of.created.stylesheet": "CSS",
@@ -67,11 +88,6 @@
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
-  },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "postgresql"
-    ]
   }
 }]]></component>
   <component name="RecentsManager">
@@ -173,8 +189,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23339.11" />
-        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23339.11" />
+        <option value="bundled-jdk-9823dce3aa75-b114ca120d71-intellij.indexing.shared.core-IU-242.21829.142" />
+        <option value="bundled-js-predefined-d6986cc7102b-7c0b70fcd90d-JavaScript-IU-242.21829.142" />
       </set>
     </attachedChunks>
   </component>
@@ -191,8 +207,7 @@
       <workItem from="1728903106082" duration="618000" />
       <workItem from="1728912529532" duration="2827000" />
       <workItem from="1728919948443" duration="4501000" />
-      <workItem from="1728944137810" duration="1005000" />
-      <workItem from="1728980953036" duration="2431000" />
+      <workItem from="1728944137810" duration="2649000" />
     </task>
     <servers />
   </component>
