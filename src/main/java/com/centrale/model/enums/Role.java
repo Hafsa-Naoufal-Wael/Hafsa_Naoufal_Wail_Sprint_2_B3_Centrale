@@ -1,4 +1,6 @@
 package com.centrale.model.enums;
 
-public class Role {
+public enum Role {
+    ADMIN,
+    CLIENT
 }
