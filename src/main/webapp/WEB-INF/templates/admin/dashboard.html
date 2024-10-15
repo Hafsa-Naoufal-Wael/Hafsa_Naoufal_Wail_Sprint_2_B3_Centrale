@@ -6,6 +6,25 @@
 </head>
 <body>
     <div th:fragment="content">
+        <h1 class="text-3xl font-bold mb-4">Admin Dashboard</h1>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="bg-white p-4 rounded shadow">
+                <h2 class="text-xl font-semibold mb-2">Recent Orders</h2>
+                <ul>
+                    <li th:each="order : ${recentOrders}" class="mb-2">
+                        <span th:text="${'Order #' + order.id}"></span>
+                        <span th:text="${' - ' + order.status}" class="text-gray-600"></span>
+                    </li>
+                </ul>
+                <a href="/admin/orders" class="text-blue-500 hover:underline">View All Orders</a>
+            </div>
+            <div class="bg-white p-4 rounded shadow">
+                <h2 class="text-xl font-semibold mb-2">Product Statistics</h2>
+                <p th:text="${'Total Products: ' + totalProducts}"></p>
+                <p th:text="${'Low Stock Products: ' + lowStockProducts}"></p>
+                <a href="/admin/products" class="text-blue-500 hover:underline">Manage Products</a>
+            </div>
+        </div>
     </div>
 </body>
 </html>

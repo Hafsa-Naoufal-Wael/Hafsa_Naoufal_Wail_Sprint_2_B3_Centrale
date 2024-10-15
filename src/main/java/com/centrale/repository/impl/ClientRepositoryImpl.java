@@ -1,0 +1,67 @@
+package com.centrale.repository.impl;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
+
+import com.centrale.model.entity.Client;
+import com.centrale.repository.ClientRepository;
+import com.centrale.util.HibernateUtil;
+
+public class ClientRepositoryImpl implements ClientRepository {
+
+    private final SessionFactory sessionFactory;
+
+    public ClientRepositoryImpl() {
+        this.sessionFactory = HibernateUtil.getSessionFactory();
+    }
+
+    @Override
+    public Client save(Client client) {
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            session.saveOrUpdate(client);
+            session.getTransaction().commit();
+            return client;
+        }
+    }
+
+    @Override
+    public Optional<Client> findById(Long id) {
+        try (Session session = sessionFactory.openSession()) {
+            return Optional.ofNullable(session.get(Client.class, id));
+        }
+    }
+
+    @Override
+    public List<Client> findAll() {
+        try (Session session = sessionFactory.openSession()) {
+            return session.createQuery("FROM Client", Client.class).list();
+        }
+    }
+
+    @Override
+    public void delete(Client client) {
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            session.delete(client);
+            session.getTransaction().commit();
+        }
+    }
+    @Override
+    public List<Client> findAllPaginated(int page, int size) {
+        try (Session session = sessionFactory.openSession()) {
+            Query<Client> query = session.createQuery("FROM Client", Client.class);
+            query.setFirstResult((page - 1) * size);
+            query.setMaxResults(size);
+            return query.list();
+        }
+    }
+    @Override
+    public Session getSession() {
+        return sessionFactory.openSession();
+    }
+}

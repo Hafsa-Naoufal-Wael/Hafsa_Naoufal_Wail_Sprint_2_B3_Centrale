@@ -7,13 +7,29 @@
 <body>
     <header th:fragment="header" class="bg-blue-600 text-white shadow-md">
         <nav class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <a href="/" class="text-2xl font-bold">Central</a>
+            <a th:href="@{/}" class="text-2xl font-bold">Central</a>
             <ul class="flex space-x-4">
-                <li><a href="/" class="hover:text-blue-200">Home</a></li>
-                <li><a href="/products" class="hover:text-blue-200">Products</a></li>
-                <li><a href="/cart" class="hover:text-blue-200">Cart</a></li>
-                <li><a href="/login" class="hover:text-blue-200">Login</a></li>
-                <li><a href="/register" class="hover:text-blue-200">Register</a></li>
+                <li><a th:href="@{/}" class="hover:text-blue-200">Home</a></li>
+                <li><a th:href="@{/products}" class="hover:text-blue-200">Products</a></li>
+                <li><a th:href="@{/cart}" class="hover:text-blue-200">Cart</a></li>
+                <li th:if="${session.user == null}">
+                    <a th:href="@{/login}" class="hover:text-blue-200">Login</a>
+                </li>
+                <li th:if="${session.user == null}">
+                    <a th:href="@{/register}" class="hover:text-blue-200">Register</a>
+                </li>
+                <li th:if="${session.user != null}" class="relative group">
+                    <a href="#" class="hover:text-blue-200">
+                        <span th:text="${session.user.name}">User</span>
+                        <i class="fas fa-chevron-down ml-1"></i>
+                    </a>
+                    <ul class="absolute hidden group-hover:block bg-blue-600 mt-2 py-2 w-48 rounded shadow-lg">
+                        <li><a th:href="@{/dashboard}" class="block px-4 py-2 hover:bg-blue-700">Dashboard</a></li>
+                        <li><a th:href="@{/profile}" class="block px-4 py-2 hover:bg-blue-700">Profile</a></li>
+                        <li><a th:href="@{/orders}" class="block px-4 py-2 hover:bg-blue-700">Orders</a></li>
+                        <li><a th:href="@{/logout}" class="block px-4 py-2 hover:bg-blue-700">Logout</a></li>
+                    </ul>
+                </li>
             </ul>
         </nav>
     </header>
