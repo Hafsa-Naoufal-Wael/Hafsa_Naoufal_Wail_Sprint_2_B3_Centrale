@@ -101,13 +101,18 @@ public class OrderController extends HttpServlet {
             paymentMethod = paymentMethod.trim();
 
             // Check and update client information if necessary
+            boolean clientUpdated = false;
             if (client.getDeliveryAddress() == null || client.getDeliveryAddress().isEmpty()) {
                 client.setDeliveryAddress(shippingAddress);
+                clientUpdated = true;
             }
             if (client.getPaymentMethod() == null || client.getPaymentMethod().isEmpty()) {
                 client.setPaymentMethod(paymentMethod);
+                clientUpdated = true;
             }
-            clientService.updateClient(client);
+            if (clientUpdated) {
+                clientService.updateClient(client);
+            }
 
             Order order = orderService.createOrder(client, cartItems, shippingAddress, paymentMethod);
             session.removeAttribute("cart");
