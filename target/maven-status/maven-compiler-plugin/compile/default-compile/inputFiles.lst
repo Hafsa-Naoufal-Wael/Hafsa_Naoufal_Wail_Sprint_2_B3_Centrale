@@ -1,6 +1,7 @@
 C:\Users\ssngn\Documents\Youcode\Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale\src\main\java\com\centrale\repository\ProductRepository.java
 C:\Users\ssngn\Documents\Youcode\Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale\src\main\java\com\centrale\controller\CartController.java
 C:\Users\ssngn\Documents\Youcode\Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale\src\main\java\com\centrale\controller\ClientController.java
+C:\Users\ssngn\Documents\Youcode\Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale\src\main\java\com\centrale\util\PostgreSQLEnumUserType.java
 C:\Users\ssngn\Documents\Youcode\Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale\src\main\java\com\centrale\model\entity\OrderItem.java
 C:\Users\ssngn\Documents\Youcode\Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale\src\main\java\com\centrale\config\ThymeleafConfig.java
 C:\Users\ssngn\Documents\Youcode\Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale\src\main\java\com\centrale\repository\impl\OrderRepositoryImpl.java
@@ -19,12 +20,14 @@ C:\Users\ssngn\Documents\Youcode\Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale\src\mai
 C:\Users\ssngn\Documents\Youcode\Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale\src\main\java\com\centrale\model\entity\Client.java
 C:\Users\ssngn\Documents\Youcode\Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale\src\main\java\com\centrale\repository\OrderRepository.java
 C:\Users\ssngn\Documents\Youcode\Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale\src\main\java\com\centrale\model\entity\Order.java
+C:\Users\ssngn\Documents\Youcode\Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale\src\main\java\com\centrale\controller\AuthController.java
 C:\Users\ssngn\Documents\Youcode\Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale\src\main\java\com\centrale\repository\UserRepository.java
 C:\Users\ssngn\Documents\Youcode\Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale\src\main\java\com\centrale\filter\LoggingFilter.java
 C:\Users\ssngn\Documents\Youcode\Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale\src\main\java\com\centrale\service\UserService.java
 C:\Users\ssngn\Documents\Youcode\Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale\src\main\java\com\centrale\service\AdminService.java
 C:\Users\ssngn\Documents\Youcode\Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale\src\main\java\com\centrale\util\HibernateUtil.java
 C:\Users\ssngn\Documents\Youcode\Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale\src\main\java\com\centrale\controller\HomeController.java
+C:\Users\ssngn\Documents\Youcode\Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale\src\main\java\com\centrale\service\AuthService.java
 C:\Users\ssngn\Documents\Youcode\Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale\src\main\java\com\centrale\repository\impl\AdminRepositoryImpl.java
 C:\Users\ssngn\Documents\Youcode\Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale\src\main\java\com\centrale\model\entity\Admin.java
 C:\Users\ssngn\Documents\Youcode\Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale\src\main\java\com\centrale\model\entity\User.java

@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.hibernate.Session;
 
 import com.centrale.model.entity.Client;
+import com.centrale.model.entity.User;
 
 public interface ClientRepository {
     Client save(Client client);
@@ -14,4 +15,7 @@ public interface ClientRepository {
     void delete(Client client);
     List<Client> findAllPaginated(int page, int size);
     Session getSession();
+    Client findByUser(User user);
+    Client findByEmail(String email);
+    Client saveWithSession(Client client, Session session);
 }

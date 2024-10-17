@@ -19,6 +19,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.centrale.model.enums.OrderStatus;
+import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name = "orders")
@@ -36,6 +37,7 @@ public class Order {
     private LocalDateTime orderDate;
 
     @Enumerated(EnumType.STRING)
+    @Type(type = "com.centrale.util.PostgreSQLEnumUserType")
     @Column(nullable = false)
     private OrderStatus status;
 
@@ -47,6 +49,9 @@ public class Order {
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderItem> orderItems = new ArrayList<>();
+
+    @Column(nullable = true)
+    private String paymentMethod;
 
     // Getters and setters
     public Long getId() {
@@ -102,5 +107,13 @@ public class Order {
     
     public void setShippingAddress(String shippingAddress) {
         this.shippingAddress = shippingAddress;
+    }
+
+    public String getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
     }
 }

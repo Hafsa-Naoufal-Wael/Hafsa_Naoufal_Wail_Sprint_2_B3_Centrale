@@ -1,8 +1,10 @@
 package com.centrale.service;
 
+import com.centrale.model.entity.Client;
 import com.centrale.model.entity.User;
 import com.centrale.model.enums.UserRole;
 import com.centrale.repository.UserRepository;
+import com.centrale.repository.ClientRepository;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.Optional;
@@ -10,20 +12,10 @@ import java.util.Optional;
 public class AuthService {
 
     private final UserRepository userRepository;
-
-    public AuthService(UserRepository userRepository) {
+    private final ClientRepository clientRepository;
+    public AuthService(UserRepository userRepository, ClientRepository clientRepository) {
         this.userRepository = userRepository;
-    }
-
-    public User register(String firstName, String lastName, String email, String password, UserRole role) {
-        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
-        User user = new User();
-        user.setFirstName(firstName);
-        user.setLastName(lastName);
-        user.setEmail(email);
-        user.setPassword(hashedPassword);
-        user.setRole(role);
-        return userRepository.save(user);
+        this.clientRepository = clientRepository;
     }
 
     public Optional<User> login(String email, String password) {
@@ -35,5 +27,27 @@ public class AuthService {
             }
         }
         return Optional.empty();
+    }
+    public User register(String firstName, String lastName, String email, String password) throws Exception {
+        if (userRepository.findByEmail(email).isPresent()) {
+            throw new Exception("Email already exists");
+        }
+
+        User user = new User();
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setEmail(email);
+        user.setPassword(BCrypt.hashpw(password, BCrypt.gensalt()));
+        user.setRole(UserRole.CLIENT);
+
+        user = userRepository.save(user);
+
+        Client client = new Client();
+        client.setUser(user);
+        // Remove this line: client.setId(user.getId());
+
+        clientRepository.save(client);
+
+        return user;
     }
 }

@@ -38,7 +38,7 @@ public class OrderItem {
     @NotNull
     @DecimalMin("0.01")
     @Column(name = "price_at_order", nullable = false)
-    private BigDecimal priceAtOrder;
+    private BigDecimal priceAtOrder = BigDecimal.ZERO;
 
     public OrderItem() {
     }
@@ -63,5 +63,9 @@ public class OrderItem {
 
     public BigDecimal getPriceAtOrder() {
         return priceAtOrder;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }

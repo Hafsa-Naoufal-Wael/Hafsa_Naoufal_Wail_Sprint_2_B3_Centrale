@@ -1,8 +1,10 @@
 package com.centrale.controller;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -14,175 +16,161 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
 import com.centrale.config.ThymeleafConfig;
-import com.centrale.model.entity.Order;
 import com.centrale.model.entity.OrderItem;
 import com.centrale.model.entity.Product;
-import com.centrale.model.entity.User;
-import com.centrale.repository.impl.OrderRepositoryImpl;
 import com.centrale.repository.impl.ProductRepositoryImpl;
-import com.centrale.service.OrderService;
 import com.centrale.service.ProductService;
 
 public class CartController extends HttpServlet {
+
     private ProductService productService;
-    private OrderService orderService;
-    private TemplateEngine templateEngine;
 
     @Override
     public void init() throws ServletException {
         super.init();
         productService = new ProductService(new ProductRepositoryImpl());
-        orderService = new OrderService(new OrderRepositoryImpl());
-        templateEngine = ThymeleafConfig.getTemplateEngine(getServletContext());
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String action = request.getPathInfo();
-        if (action == null || action.equals("/")) {
-            viewCart(request, response);
-        } else if (action.equals("/checkout")) {
-            showCheckoutPage(request, response);
-        } else {
-            response.sendError(HttpServletResponse.SC_NOT_FOUND);
+        String action = getAction(request);
+        switch (action) {
+            case "view":
+                viewCart(request, response);
+                break;
+            case "checkout":
+                showCheckout(request, response);
+                break;
+            default:
+                response.sendError(HttpServletResponse.SC_NOT_FOUND);
         }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String action = request.getPathInfo();
-        if (action == null || action.equals("/")) {
-            addToCart(request, response);
-        } else if (action.equals("/remove")) {
-            removeFromCart(request, response);
-        } else if (action.equals("/checkout")) {
-            processCheckout(request, response);
-        } else {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+        String action = getAction(request);
+        switch (action) {
+            case "add":
+                addToCart(request, response);
+                break;
+            case "remove":
+                removeFromCart(request, response);
+                break;
+            default:
+                response.sendError(HttpServletResponse.SC_NOT_FOUND);
+        }
+    }
+
+    private String getAction(HttpServletRequest request) {
+        String pathInfo = request.getPathInfo();
+        if (pathInfo == null || pathInfo.equals("/")) {
+            return "view";
+        }
+        return pathInfo.substring(1);
+    }
+
+    private void addToCart(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        try {
+            Long productId = Long.parseLong(request.getParameter("productId"));
+            int quantity = Integer.parseInt(request.getParameter("quantity"));
+            String returnUrl = request.getParameter("returnUrl");
+
+            Optional<Product> product = productService.getProductById(productId);
+            if (product.isPresent()) {
+                HttpSession session = request.getSession();
+                List<OrderItem> cart = getOrCreateCart(session);
+                updateCartItem(cart, product.get(), quantity);
+                session.setAttribute("cart", cart);
+                updateCartCount(session);
+                response.sendRedirect(request.getContextPath() + (returnUrl != null ? returnUrl : "/cart")
+                        + "?success=Product+added+to+cart");
+            } else {
+                response.sendRedirect(request.getContextPath() + (returnUrl != null ? returnUrl : "/cart")
+                        + "?error=Product+not+found");
+            }
+        } catch (Exception e) {
+            response.sendRedirect(request.getContextPath() + "/cart?error=An+error+occurred");
+
+        }
+    }
+
+    private void removeFromCart(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        try {
+            Long productId = Long.parseLong(request.getParameter("id"));
+            HttpSession session = request.getSession();
+            List<OrderItem> cart = getOrCreateCart(session);
+            cart.removeIf(item -> item.getProduct().getId().equals(productId));
+            session.setAttribute("cart", cart);
+            updateCartCount(session);
+            response.sendRedirect(request.getContextPath() + "/cart");
+        } catch (Exception e) {
+            response.sendRedirect(request.getContextPath() + "/cart?error=An+error+occurred");
         }
     }
 
     private void viewCart(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        List<OrderItem> cartItems = (List<OrderItem>) session.getAttribute("cart");
-        if (cartItems == null) {
-            cartItems = new ArrayList<>();
-        }
-
-        double total = cartItems.stream()
-                .mapToDouble(item -> item.getProduct().getPrice().doubleValue() * item.getQuantity())
-                .sum();
-
-        WebContext context = new WebContext(request, response, getServletContext());
-        context.setVariable("cartItems", cartItems);
-        context.setVariable("total", total);
-        context.setVariable("pageTitle", "Shopping Cart");
-
-        templateEngine.process("client/shopping-cart", context, response.getWriter());
+        List<OrderItem> cartItems = getOrCreateCart(session);
+        BigDecimal total = calculateTotal(cartItems);
+        request.setAttribute("cartItems", cartItems);
+        request.setAttribute("total", total);
+        request.setAttribute("pageTitle", "Shopping Cart");
+        renderTemplate(request, response, "client/shopping-cart");
     }
 
-    private void showCheckoutPage(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        List<OrderItem> cartItems = (List<OrderItem>) session.getAttribute("cart");
-        if (cartItems == null || cartItems.isEmpty()) {
-            response.sendRedirect(request.getContextPath() + "/cart");
-            return;
-        }
 
-        double total = cartItems.stream()
-                .mapToDouble(item -> item.getProduct().getPrice().doubleValue() * item.getQuantity())
-                .sum();
-
-        WebContext context = new WebContext(request, response, getServletContext());
-        context.setVariable("cartItems", cartItems);
-        context.setVariable("total", total);
-        context.setVariable("pageTitle", "Checkout");
-
-        templateEngine.process("client/checkout", context, response.getWriter());
-    }
-
-    private void addToCart(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String productIdParam = request.getParameter("productId");
-        String quantityParam = request.getParameter("quantity");
-
-        if (productIdParam == null || quantityParam == null) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing productId or quantity");
-            return;
-        }
-
-        try {
-            Long productId = Long.parseLong(productIdParam);
-            int quantity = Integer.parseInt(quantityParam);
-
-            Product product = productService.getProductById(productId).orElse(null);
-            if (product != null) {
-                OrderItem orderItem = new OrderItem(product, quantity);
-
-                HttpSession session = request.getSession();
-                List<OrderItem> cart = (List<OrderItem>) session.getAttribute("cart");
-                if (cart == null) {
-                    cart = new ArrayList<>();
-                }
-                cart.add(orderItem);
-                session.setAttribute("cart", cart);
-
-                response.sendRedirect(request.getContextPath() + "/cart");
-            } else {
-                response.sendError(HttpServletResponse.SC_NOT_FOUND, "Product not found");
-            }
-        } catch (NumberFormatException e) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid productId or quantity");
-        }
-    }
-
-    private void removeFromCart(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        Long productId = Long.parseLong(request.getParameter("productId"));
-
-        HttpSession session = request.getSession();
+    private List<OrderItem> getOrCreateCart(HttpSession session) {
         List<OrderItem> cart = (List<OrderItem>) session.getAttribute("cart");
-        if (cart != null) {
-            cart.removeIf(item -> item.getProduct().getId().equals(productId));
+        if (cart == null) {
+            cart = new ArrayList<>();
             session.setAttribute("cart", cart);
         }
-
-        response.sendRedirect(request.getContextPath() + "/cart");
+        return cart;
     }
 
-    private void processCheckout(HttpServletRequest request, HttpServletResponse response)
+    private void updateCartItem(List<OrderItem> cart, Product product, int quantity) {
+        Optional<OrderItem> existingItem = cart.stream()
+                .filter(item -> item.getProduct().getId().equals(product.getId()))
+                .findFirst();
+        if (existingItem.isPresent()) {
+            existingItem.get().setQuantity(existingItem.get().getQuantity() + quantity);
+        } else {
+            cart.add(new OrderItem(product, quantity));
+        }
+    }
+
+    private int updateCartCount(HttpSession session) {
+        List<OrderItem> cart = getOrCreateCart(session);
+        int cartCount = cart.stream().mapToInt(OrderItem::getQuantity).sum();
+        session.setAttribute("cartCount", cartCount);
+        return cartCount;
+    }
+
+    private BigDecimal calculateTotal(List<OrderItem> cartItems) {
+        return cartItems.stream()
+                .map(item -> item.getProduct().getPrice().multiply(BigDecimal.valueOf(item.getQuantity())))
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+    private void renderTemplate(HttpServletRequest request, HttpServletResponse response, String templateName)
+            throws ServletException, IOException {
+        TemplateEngine engine = ThymeleafConfig.getTemplateEngine(getServletContext());
+        WebContext context = new WebContext(request, response, getServletContext());
+        engine.process(templateName, context, response.getWriter());
+    }
+
+    private void showCheckout(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user");
-
-        if (user == null) {
-            response.sendRedirect(request.getContextPath() + "/auth/login");
-            return;
-        }
-
-        List<OrderItem> cartItems = (List<OrderItem>) session.getAttribute("cart");
-        if (cartItems == null || cartItems.isEmpty()) {
-            response.sendRedirect(request.getContextPath() + "/cart");
-            return;
-        }
-
-        String shippingAddress = request.getParameter("address");
-        if (shippingAddress == null || shippingAddress.trim().isEmpty()) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
-            return;
-        }
-
-        // Create order using OrderService
-        Order order = orderService.createOrder(user, cartItems, shippingAddress);
-
-        // Clear the cart
-        session.removeAttribute("cart");
-
-        // Redirect to order confirmation page
-        response.sendRedirect(request.getContextPath() + "/orders/detail?id=" + order.getId());
+        List<OrderItem> cartItems = getOrCreateCart(session);
+        BigDecimal total = calculateTotal(cartItems);
+        request.setAttribute("cartItems", cartItems);
+        request.setAttribute("total", total);
+        request.setAttribute("pageTitle", "Checkout");
+        renderTemplate(request, response, "client/checkout");
     }
+
 }

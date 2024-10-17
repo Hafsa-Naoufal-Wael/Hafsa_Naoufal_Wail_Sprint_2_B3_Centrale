@@ -27,24 +27,24 @@
     </servlet-mapping>
 
     <!-- Cart Controller -->
-    <servlet>
-        <servlet-name>CartController</servlet-name>
-        <servlet-class>com.centrale.controller.CartController</servlet-class>
-    </servlet>
+<servlet>
+    <servlet-name>CartController</servlet-name>
+    <servlet-class>com.centrale.controller.CartController</servlet-class>
+</servlet>
 <servlet-mapping>
     <servlet-name>CartController</servlet-name>
-        <url-pattern>/cart/*</url-pattern>
-    </servlet-mapping>
+    <url-pattern>/cart/*</url-pattern>
+</servlet-mapping>
 
     <!-- Order Controller -->
-    <servlet>
-        <servlet-name>OrderController</servlet-name>
-        <servlet-class>com.centrale.controller.OrderController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>OrderController</servlet-name>
-        <url-pattern>/orders/*</url-pattern>
-    </servlet-mapping>
+<servlet>
+    <servlet-name>OrderController</servlet-name>
+    <servlet-class>com.centrale.controller.OrderController</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>OrderController</servlet-name>
+    <url-pattern>/orders/*</url-pattern>
+</servlet-mapping>
 
 <!-- Auth Controller -->
 <servlet>
@@ -67,14 +67,14 @@
     </servlet-mapping>
 
     <!-- Client Controller -->
-    <servlet>
-        <servlet-name>ClientController</servlet-name>
-        <servlet-class>com.centrale.controller.ClientController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>ClientController</servlet-name>
-        <url-pattern>/client/*</url-pattern>
-    </servlet-mapping>
+<servlet>
+    <servlet-name>ClientController</servlet-name>
+    <servlet-class>com.centrale.controller.ClientController</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>ClientController</servlet-name>
+    <url-pattern>/client/*</url-pattern>
+</servlet-mapping>
 
     <!-- Logging Filter
     <filter>

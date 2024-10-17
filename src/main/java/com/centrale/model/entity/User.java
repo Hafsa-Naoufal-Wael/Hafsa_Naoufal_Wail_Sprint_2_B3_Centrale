@@ -16,6 +16,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.Type;
+
 import com.centrale.model.enums.UserRole;
 
 @Entity
@@ -48,9 +50,10 @@ public class User implements Serializable {
     @Column(nullable = false)
     private String password;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private UserRole role;
+@Enumerated(EnumType.STRING)
+@Column(name = "role", nullable = false)
+@Type(type = "com.centrale.util.PostgreSQLEnumUserType")
+private UserRole role;
 
     // Getters and setters
     public Long getId() {

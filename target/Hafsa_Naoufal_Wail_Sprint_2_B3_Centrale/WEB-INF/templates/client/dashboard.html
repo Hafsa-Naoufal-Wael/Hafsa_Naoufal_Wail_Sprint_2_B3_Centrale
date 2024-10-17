@@ -2,27 +2,47 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title th:text="${pageTitle}"></title>
+    <title>Client Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <div th:fragment="content">
-        <h1 class="text-3xl font-bold mb-4">Your Dashboard</h1>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="bg-white p-4 rounded shadow">
-                <h2 class="text-xl font-semibold mb-2">Recent Orders</h2>
-                <ul>
-                    <li th:each="order : ${recentOrders}" class="mb-2">
-                        <span th:text="${'Order #' + order.id}"></span>
-                        <span th:text="${' - ' + order.status}" class="text-gray-600"></span>
-                    </li>
-                </ul>
-                <a href="/orders" class="text-blue-500 hover:underline">View All Orders</a>
+<body class="bg-gray-100">
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <div class="w-64 bg-white shadow-md">
+            <div class="p-4">
+                <h2 class="text-xl font-semibold">Menu</h2>
             </div>
-            <div class="bg-white p-4 rounded shadow">
-                <h2 class="text-xl font-semibold mb-2">Account Information</h2>
-                <p th:text="${'Name: ' + user.name}"></p>
-                <p th:text="${'Email: ' + user.email}"></p>
-                <a href="/profile" class="text-blue-500 hover:underline">Edit Profile</a>
+            <nav class="mt-4">
+                <a href="/client/dashboard" class="block py-2 px-4 text-gray-700 hover:bg-gray-200">Dashboard</a>
+                <a href="/client/orders" class="block py-2 px-4 text-gray-700 hover:bg-gray-200">Manage Orders</a>
+                <a href="/products" class="block py-2 px-4 text-gray-700 hover:bg-gray-200">Shop Products</a>
+                <a href="/auth/logout" class="block py-2 px-4 text-gray-700 hover:bg-gray-200">Logout</a>
+            </nav>
+        </div>
+
+        <!-- Main content -->
+        <div class="flex-1 p-10">
+            <h1 class="text-3xl font-bold mb-8">Welcome, <span th:text="${user.name}"></span>!</h1>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Recent Orders -->
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h2 class="text-xl font-semibold mb-4">Recent Orders</h2>
+                    <ul>
+                        <li th:each="order : ${recentOrders}" class="mb-2">
+                            <span th:text="${'Order #' + order.id}"></span>
+                            <span th:text="${' - ' + order.status}" class="text-gray-600"></span>
+                        </li>
+                    </ul>
+                    <a href="/client/orders" class="text-blue-500 hover:underline">View All Orders</a>
+                </div>
+
+                <!-- Account Summary -->
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h2 class="text-xl font-semibold mb-4">Account Summary</h2>
+                    <p th:text="${'Total Orders: ' + totalOrders}"></p>
+                    <p th:text="${'Last Order Date: ' + lastOrderDate}"></p>
+                </div>
             </div>
         </div>
     </div>

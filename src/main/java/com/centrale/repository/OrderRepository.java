@@ -1,11 +1,11 @@
 package com.centrale.repository;
 
-import com.centrale.model.entity.Order;
-import com.centrale.model.entity.Client;
-import com.centrale.model.enums.OrderStatus;
-
 import java.util.List;
 import java.util.Optional;
+
+import com.centrale.model.entity.Client;
+import com.centrale.model.entity.Order;
+import com.centrale.model.enums.OrderStatus;
 
 public interface OrderRepository {
     Order save(Order order);
@@ -14,5 +14,10 @@ public interface OrderRepository {
     void delete(Order order);
     List<Order> findByClient(Client client);
     List<Order> findByStatus(OrderStatus status);
-    List<Order> findAllPaginated(int page, int size);
+    List<Order> findRecentByClient(Client client, int limit);
+    List<Order> findAllPaginated(int page, int pageSize, String searchTerm);
+    int getTotalOrderCount(String searchTerm);
+    List<Order> findByClientPaginated(Client client, int page, int pageSize, String searchTerm);
+    int getTotalOrderCountByClient(Client client, String searchTerm);
+    
 }

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.centrale.model.entity.Client;
+import com.centrale.model.entity.User;
 import com.centrale.repository.ClientRepository;
 
 public class ClientService {
@@ -32,5 +33,15 @@ public class ClientService {
     public List<Client> getAllClientsPaginated(int page, int size) {
         return clientRepository.findAllPaginated(page, size);
     }
+    public Client findByUser(User user) {
+        return clientRepository.findByUser(user);
+    }
+    public Client getClientByEmail(String email) {
+        return clientRepository.findByEmail(email);
+    }
+    public Client createClient(Client client) {
+        return clientRepository.save(client);
+    }
+    
 }
 

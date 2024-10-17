@@ -30,6 +30,8 @@ public class HibernateUtil {
             // Override properties with values from application.properties
             configuration.addProperties(properties);
 
+            configuration.setProperty("hibernate.hbm2ddl.auto", "update");
+
             return configuration.buildSessionFactory();
         } catch (Exception ex) {
             logger.error("Initial SessionFactory creation failed.", ex);

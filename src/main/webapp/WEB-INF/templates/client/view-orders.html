@@ -2,16 +2,44 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title th:text="${pageTitle}"></title>
+    <title>Your Orders</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <div th:fragment="content">
-        <h1 class="text-3xl font-bold mb-4">Your Orders</h1>
-        <div th:each="order : ${orders}" class="bg-white p-4 rounded shadow mb-4">
-            <h2 th:text="${'Order #' + order.id}" class="text-xl font-semibold mb-2"></h2>
-            <p th:text="${'Date: ' + order.orderDate}" class="text-gray-600"></p>
-            <p th:text="${'Status: ' + order.status}" class="text-gray-600"></p>
-            <a th:href="@{/orders/detail(id=${order.id})}" class="text-blue-500 hover:underline">View Details</a>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold mb-8">Your Orders</h1>
+        
+        <div th:if="${#lists.isEmpty(orders)}" class="bg-white shadow-md rounded-lg p-6 text-center">
+            <p class="text-xl">You haven't placed any orders yet.</p>
+            <a href="/products" class="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Start Shopping</a>
+        </div>
+        
+        <div th:unless="${#lists.isEmpty(orders)}" class="bg-white shadow-md rounded-lg p-6">
+            <table class="w-full">
+                <thead>
+                    <tr class="bg-gray-200 text-gray-700">
+                        <th class="py-2 px-4 text-left">Order ID</th>
+                        <th class="py-2 px-4 text-left">Date</th>
+                        <th class="py-2 px-4 text-left">Status</th>
+                        <th class="py-2 px-4 text-left">Total</th>
+                        <th class="py-2 px-4 text-left">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="order : ${orders}" class="border-b">
+                        <td class="py-2 px-4"><a th:href="@{/orders/detail(id=${order.id})}" class="text-blue-500 hover:underline" th:text="${order.id}"></a></td>
+                        <td class="py-2 px-4" th:text="${#temporals.format(order.orderDate, 'dd-MM-yyyy HH:mm')}"></td>
+                        <td class="py-2 px-4" th:text="${order.status}"></td>
+                        <td class="py-2 px-4" th:text="${#numbers.formatCurrency(order.total)}"></td>
+                        <td class="py-2 px-4">
+                            <form th:if="${order.status == 'PENDING' || order.status == 'PROCESSING'}" th:action="@{/orders/cancel}" method="post" class="inline">
+                                <input type="hidden" name="orderId" th:value="${order.id}" />
+                                <button type="submit" class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600" onclick="return confirm('Are you sure you want to cancel this order?')">Cancel Order</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </body>

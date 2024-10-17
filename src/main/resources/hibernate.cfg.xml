@@ -18,7 +18,8 @@
 
         <!-- Drop and re-create the database schema on startup -->
         <property name="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</property>
-
+        <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQL95Dialect</property>
+        <property name="hibernate.type.PostgreSQLEnumUserType">com.centrale.util.PostgreSQLEnumUserType</property>
         <!-- Names the annotated entity classes -->
         <mapping class="com.centrale.model.entity.User"/>
         <mapping class="com.centrale.model.entity.Admin"/>

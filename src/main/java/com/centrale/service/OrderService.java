@@ -8,7 +8,6 @@ import java.util.Optional;
 import com.centrale.model.entity.Client;
 import com.centrale.model.entity.Order;
 import com.centrale.model.entity.OrderItem;
-import com.centrale.model.entity.User;
 import com.centrale.model.enums.OrderStatus;
 import com.centrale.repository.OrderRepository;
 
@@ -44,16 +43,17 @@ public class OrderService {
         return orderRepository.findByStatus(status);
     }
 
-    public List<Order> getAllOrdersPaginated(int page, int size) {
-        return orderRepository.findAllPaginated(page, size);
+    public List<Order> getAllOrdersPaginated(int page, int pageSize, String searchTerm) {
+        return orderRepository.findAllPaginated(page, pageSize, searchTerm);
     }
 
-    public Order createOrder(User user, List<OrderItem> cartItems, String shippingAddress) {
+    public Order createOrder(Client client, List<OrderItem> cartItems, String shippingAddress, String paymentMethod) {
         Order order = new Order();
-        order.setClient((Client) user);
+        order.setClient(client);
         order.setOrderDate(LocalDateTime.now());
         order.setStatus(OrderStatus.PENDING);
         order.setShippingAddress(shippingAddress);
+        order.setPaymentMethod(paymentMethod);
     
         // Set order items and calculate total
         BigDecimal total = BigDecimal.ZERO;
@@ -67,5 +67,22 @@ public class OrderService {
         return saveOrder(order);
     }
 
+    public int getTotalOrderCount(String searchTerm) {
+        return orderRepository.getTotalOrderCount(searchTerm);
+    }
+    public int getTotalOrdersCountByClient(Client client) {
+        return orderRepository.getTotalOrderCountByClient(client, null);
+    }
+    public List<Order> getOrdersByClientPaginated(Client client, int page, int pageSize, String searchTerm) {
+        return orderRepository.findByClientPaginated(client, page, pageSize, searchTerm);
+    }
+
+    public int getTotalOrderCountByClient(Client client, String searchTerm) {
+        return orderRepository.getTotalOrderCountByClient(client, searchTerm);
+    }
+
+    public List<Order> getRecentOrdersByClient(Client client, int limit) {
+        return orderRepository.findRecentByClient(client, limit);
+    }
 
 }

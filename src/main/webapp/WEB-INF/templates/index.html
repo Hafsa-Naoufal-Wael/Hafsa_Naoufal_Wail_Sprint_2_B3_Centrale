@@ -1,58 +1,127 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title th:text="${pageTitle}">Welcome to Our Store</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100">
+  </head>
+  <body class="bg-gray-100">
     <div th:fragment="content" class="container mx-auto px-4 py-8">
-        <h1 class="text-4xl font-bold mb-4 text-center text-gray-800">Welcome to Our Store</h1>
-        <p class="text-xl mb-8 text-center text-gray-600">Discover our wide range of products!</p>
-        
-        <!-- Search Bar and Cart Button -->
-        <div class="mb-8 flex items-center justify-center">
-            <form action="#" method="get" class="flex items-center mr-4">
-                <input type="text" name="search" placeholder="Search products..." 
-                       class="w-full max-w-md px-4 py-2 rounded-l-lg border-t border-b border-l text-gray-800 border-gray-200 bg-white focus:outline-none focus:border-blue-500">
-                <button type="submit" class="px-4 py-2 rounded-r-lg bg-blue-500 text-white font-semibold hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50">
-                    Search
-                </button>
-            </form>
-            <a href="/cart" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                View Cart
-            </a>
+      <h1 class="text-4xl font-bold mb-4 text-center text-gray-800">
+        Welcome to Our Store
+      </h1>
+      <p class="text-xl mb-8 text-center text-gray-600">
+        Discover our wide range of products!
+      </p>
+
+      <!-- Search Bar and Cart Button -->
+      <div class="mb-8 flex items-center justify-center">
+        <form action="#" method="get" class="flex items-center mr-4">
+          <input
+            type="text"
+            name="search"
+            placeholder="Search products..."
+            class="w-full max-w-md px-4 py-2 rounded-l-lg border-t border-b border-l text-gray-800 border-gray-200 bg-white focus:outline-none focus:border-blue-500"
+          />
+          <button
+            type="submit"
+            class="px-4 py-2 rounded-r-lg bg-blue-500 text-white font-semibold hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50"
+          >
+            Search
+          </button>
+        </form>
+        <a
+          href="/cart"
+          class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+        >
+          View Cart
+        </a>
+      </div>
+
+      <section class="mb-8">
+        <h2 class="text-2xl font-semibold mb-4 text-gray-800">Our Products</h2>
+        <div
+          th:if="${not #lists.isEmpty(products)}"
+          class="grid grid-cols-1 md:grid-cols-3 gap-6"
+        >
+          <div
+            th:each="product : ${products}"
+            class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300"
+          >
+            <h3
+              th:text="${product.name}"
+              class="text-xl font-semibold mb-2 text-gray-800"
+            >
+              Product Name
+            </h3>
+            <p th:text="${product.description}" class="mb-4 text-gray-600">
+              Product Description
+            </p>
+            <p
+              th:text="${#numbers.formatCurrency(product.price)}"
+              class="font-bold mb-4 text-green-600"
+            >
+              Price: $0.00
+            </p>
+            <div class="flex items-center">
+                <form th:action="@{/cart/add}" method="post" class="flex items-center">
+                    <input type="hidden" name="productId" th:value="${product.id}">
+                    <input type="hidden" name="returnUrl" th:value="${#httpServletRequest.requestURI}">
+                    <input
+                      type="number"
+                      name="quantity"
+                      th:id="'quantity-' + ${product.id}"
+                      value="1"
+                      min="1"
+                      class="w-16 px-2 py-1 border rounded mr-2"
+                    />
+                    <button
+                      type="submit"
+                      class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    >
+                      Add to Cart
+                    </button>
+                </form>
+            </div>
+          </div>
         </div>
-        
-        <section class="mb-8">
-            <h2 class="text-2xl font-semibold mb-4 text-gray-800">Our Products</h2>
-            <div th:if="${not #lists.isEmpty(products)}" class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div th:each="product : ${products}" class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300">
-                    <h3 th:text="${product.name}" class="text-xl font-semibold mb-2 text-gray-800">Product Name</h3>
-                    <p th:text="${product.description}" class="mb-4 text-gray-600">Product Description</p>
-                    <p th:text="${#numbers.formatCurrency(product.price)}" class="font-bold mb-4 text-green-600">Price: $0.00</p>
-                    <div class="flex justify-between">
-                        <a th:href="@{/product/{id}(id=${product.id})}" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300">View Details</a>
-                        <form th:action="@{/cart}" method="post" class="inline">
-                            <input type="hidden" name="productId" th:value="${product.id}">
-                            <input type="hidden" name="quantity" value="1">
-                            <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition duration-300">Add to Cart</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <p th:unless="${not #lists.isEmpty(products)}" class="text-gray-500 text-center">No products available at the moment.</p>
-            
-            <!-- Pagination -->
-            <div class="mt-8 flex justify-center">
-                <a th:if="${currentPage > 1}" th:href="@{/(page=${currentPage - 1})}" class="mx-2 px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 transition duration-300">&laquo; Previous</a>
-                <span th:each="pageNum : ${#numbers.sequence(1, totalPages)}">
-                    <a th:if="${pageNum != currentPage}" th:href="@{/(page=${pageNum})}" th:text="${pageNum}" class="mx-2 px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 transition duration-300"></a>
-                    <span th:if="${pageNum == currentPage}" th:text="${pageNum}" class="mx-2 px-4 py-2 bg-blue-500 text-white rounded"></span>
-                </span>
-                <a th:if="${currentPage < totalPages}" th:href="@{/(page=${currentPage + 1})}" class="mx-2 px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 transition duration-300">Next &raquo;</a>
-            </div>
-        </section>
+        <p
+          th:unless="${not #lists.isEmpty(products)}"
+          class="text-gray-500 text-center"
+        >
+          No products available at the moment.
+        </p>
+
+        <!-- Pagination -->
+        <div class="mt-8 flex justify-center">
+          <a
+            th:if="${currentPage > 1}"
+            th:href="@{/(page=${currentPage - 1})}"
+            class="mx-2 px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 transition duration-300"
+            >&laquo; Previous</a
+          >
+          <span th:each="pageNum : ${#numbers.sequence(1, totalPages)}">
+            <a
+              th:if="${pageNum != currentPage}"
+              th:href="@{/(page=${pageNum})}"
+              th:text="${pageNum}"
+              class="mx-2 px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 transition duration-300"
+            ></a>
+            <span
+              th:if="${pageNum == currentPage}"
+              th:text="${pageNum}"
+              class="mx-2 px-4 py-2 bg-blue-500 text-white rounded"
+            ></span>
+          </span>
+          <a
+            th:if="${currentPage < totalPages}"
+            th:href="@{/(page=${currentPage + 1})}"
+            class="mx-2 px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 transition duration-300"
+            >Next &raquo;</a
+          >
+        </div>
+      </section>
     </div>
-</body>
+  </body>
 </html>
