@@ -9,6 +9,7 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="1c762dbb-f610-49a3-b477-31de1deed0e3" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
@@ -180,6 +181,10 @@
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" />
+=======
+    <list default="true" id="23f56f0b-cde2-418d-b05d-af2ce21cfd27" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/centrale/repository/ProductRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/centrale/repository/ProductRepository.java" afterDir="false" />
+>>>>>>> 5e092b93abc5ff3dd05cd49fb4fcfaca1e084e4d
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -207,6 +212,7 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
+<<<<<<< HEAD
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;Maven.Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale [clean].executor&quot;: &quot;Run&quot;,
@@ -223,6 +229,26 @@
     &quot;settings.build.tools.auto.reload&quot;: &quot;ALL&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+=======
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "JavaScript Debug.index.html.executor": "Run",
+    "Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "Tomcat Server.Tomcat 9.0.95.executor": "Run",
+    "git-widget-placeholder": "gestion__des__produits",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/ssngn/Documents/Youcode/Hafsa_Naoufal_Wail_Sprint_2_B3_Centrale",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices",
+    "vue.rearranger.settings.migration": "true"
+>>>>>>> 5e092b93abc5ff3dd05cd49fb4fcfaca1e084e4d
   }
 }</component>
   <component name="RunManager">
@@ -329,6 +355,7 @@
       <created>1729152040947</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
+<<<<<<< HEAD
       <updated>1729152040947</updated>
       <workItem from="1729152044301" duration="4067000" />
       <workItem from="1729156244725" duration="15000" />
@@ -337,6 +364,17 @@
       <workItem from="1729162996440" duration="1620000" />
       <workItem from="1729169288960" duration="571000" />
       <workItem from="1729177304028" duration="3628000" />
+=======
+      <updated>1728902139588</updated>
+      <workItem from="1728902140813" duration="65000" />
+      <workItem from="1728902250103" duration="838000" />
+      <workItem from="1728903106082" duration="618000" />
+      <workItem from="1728912529532" duration="2827000" />
+      <workItem from="1728919948443" duration="4501000" />
+      <workItem from="1728944137810" duration="2649000" />
+      <workItem from="1728989534484" duration="313000" />
+      <workItem from="1729179626567" duration="324000" />
+>>>>>>> 5e092b93abc5ff3dd05cd49fb4fcfaca1e084e4d
     </task>
     <servers />
   </component>
