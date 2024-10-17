@@ -1,97 +1,147 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <title>Checkout</title>
     <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100">
-<div th:fragment="content" class="container mx-auto px-4 py-8">
-    <h1 class="text-3xl font-bold mb-8 text-center">Checkout</h1>
-    <div class="flex flex-wrap -mx-4">
+  </head>
+  <body class="bg-gray-100">
+    <div th:fragment="content" class="container mx-auto px-4 py-8">
+      <h1 class="text-3xl font-bold mb-8 text-center">Checkout</h1>
+      <div class="flex flex-wrap -mx-4">
         <div class="w-full md:w-1/2 px-4 mb-8">
-            <h2 class="text-2xl font-bold mb-4">Order Summary</h2>
-            <div class="bg-white shadow-md rounded-lg p-6">
-                <table class="w-full mb-4">
-                    <thead>
-                    <tr class="border-b">
-                        <th class="text-left py-2">Product</th>
-                        <th class="text-right py-2">Quantity</th>
-                        <th class="text-right py-2">Price</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="item : ${cartItems}" class="border-b">
-                        <td th:text="${item.product.name}" class="py-2"></td>
-                        <td th:text="${item.quantity}" class="text-right py-2"></td>
-                        <td th:text="${#numbers.formatCurrency(item.product.price * item.quantity)}" class="text-right py-2"></td>
-                    </tr>
-                    </tbody>
-                    <tfoot>
-                    <tr>
-                        <td colspan="2" class="text-right font-bold py-2">Total:</td>
-                        <td th:text="${#numbers.formatCurrency(total)}" class="text-right font-bold py-2"></td>
-                    </tr>
-                    </tfoot>
-                </table>
-            </div>
+          <h2 class="text-2xl font-bold mb-4">Order Summary</h2>
+          <div class="bg-white shadow-md rounded-lg p-6">
+            <table class="w-full mb-4">
+              <thead>
+                <tr class="border-b">
+                  <th class="text-left py-2">Product</th>
+                  <th class="text-right py-2">Quantity</th>
+                  <th class="text-right py-2">Price</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr th:each="item : ${cartItems}" class="border-b">
+                  <td th:text="${item.product.name}" class="py-2"></td>
+                  <td th:text="${item.quantity}" class="text-right py-2"></td>
+                  <td
+                    th:text="${#numbers.formatCurrency(item.product.price * item.quantity)}"
+                    class="text-right py-2"
+                  ></td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="2" class="text-right font-bold py-2">Total:</td>
+                  <td
+                    th:text="${#numbers.formatCurrency(total)}"
+                    class="text-right font-bold py-2"
+                  ></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
         </div>
         <div class="w-full md:w-1/2 px-4">
-            <h2 class="text-2xl font-bold mb-4">Shipping Information</h2>
-            <form th:action="@{/orders/process}" method="post" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-                <div class="mb-4">
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="shippingAddress">
-                        Shipping Address
-                    </label>
-                    <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
-                              id="shippingAddress" 
-                              name="shippingAddress" 
-                              rows="3" 
-                              required 
-                              th:text="${client != null ? client.deliveryAddress : ''}"></textarea>
-                </div>
-                <div class="mb-4">
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="paymentMethod">
-                        Payment Method
-                    </label>
-                    <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
-                            id="paymentMethod" 
-                            name="paymentMethod" 
-                            required>
-                        <option value="">Select a payment method</option>
-                        <option value="Credit Card" th:selected="${client != null && client.paymentMethod == 'Credit Card'}">Credit Card</option>
-                        <option value="PayPal" th:selected="${client != null && client.paymentMethod == 'PayPal'}">PayPal</option>
-                        <option value="Bank Transfer" th:selected="${client != null && client.paymentMethod == 'Bank Transfer'}">Bank Transfer</option>
-                    </select>
-                </div>
-                <div class="flex items-center justify-between">
-                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
-                        Place Order
-                    </button>
-                </div>
-            </form>
+          <h2 class="text-2xl font-bold mb-4">Shipping Information</h2>
+          <form
+            th:action="@{/orders/process}"
+            method="post"
+            class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+          >
+            <div class="mb-4">
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="shippingAddress"
+              >
+                Shipping Address
+              </label>
+              <textarea
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="shipping_address"
+                name="shipping_address"
+                rows="3"
+                required
+                th:text="${client != null && client.deliveryAddress != null ? client.deliveryAddress : ''}"
+              ></textarea>
+            </div>
+            <div class="mb-4">
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="paymentMethod"
+              >
+                Payment Method
+              </label>
+              <select
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="paymentMethod"
+                name="paymentMethod"
+                required
+              >
+                <option value="">Select a payment method</option>
+                <option
+                  value="Credit Card"
+                  th:selected="${client != null && client.paymentMethod == 'Credit Card'}"
+                >
+                  Credit Card
+                </option>
+                <option
+                  value="PayPal"
+                  th:selected="${client != null && client.paymentMethod == 'PayPal'}"
+                >
+                  PayPal
+                </option>
+                <option
+                  value="Bank Transfer"
+                  th:selected="${client != null && client.paymentMethod == 'Bank Transfer'}"
+                >
+                  Bank Transfer
+                </option>
+              </select>
+            </div>
+            <div class="flex items-center justify-between">
+              <button
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                type="submit"
+              >
+                Place Order
+              </button>
+            </div>
+          </form>
         </div>
-    </div>
-    <!-- Pagination -->
-    <div th:if="${totalPages > 1}" class="mt-8 flex justify-center">
-        <a th:if="${currentPage > 1}" th:href="@{/cart/checkout(page=${currentPage - 1})}"
-           class="mx-2 px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 transition duration-300">
-            &laquo; Previous
+      </div>
+      <!-- Pagination -->
+      <div th:if="${totalPages > 1}" class="mt-8 flex justify-center">
+        <a
+          th:if="${currentPage > 1}"
+          th:href="@{/cart/checkout(page=${currentPage - 1})}"
+          class="mx-2 px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 transition duration-300"
+        >
+          &laquo; Previous
         </a>
         <span th:each="pageNum : ${#numbers.sequence(1, totalPages)}">
-            <a th:if="${pageNum != currentPage}" th:href="@{/cart/checkout(page=${pageNum})}"
-               th:text="${pageNum}"
-               class="mx-2 px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 transition duration-300">
-            </a>
-            <span th:if="${pageNum == currentPage}" th:text="${pageNum}"
-                  class="mx-2 px-4 py-2 bg-blue-500 text-white rounded">
-            </span>
+          <a
+            th:if="${pageNum != currentPage}"
+            th:href="@{/cart/checkout(page=${pageNum})}"
+            th:text="${pageNum}"
+            class="mx-2 px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 transition duration-300"
+          >
+          </a>
+          <span
+            th:if="${pageNum == currentPage}"
+            th:text="${pageNum}"
+            class="mx-2 px-4 py-2 bg-blue-500 text-white rounded"
+          >
+          </span>
         </span>
-        <a th:if="${currentPage < totalPages}" th:href="@{/cart/checkout(page=${currentPage + 1})}"
-           class="mx-2 px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 transition duration-300">
-            Next &raquo;
+        <a
+          th:if="${currentPage < totalPages}"
+          th:href="@{/cart/checkout(page=${currentPage + 1})}"
+          class="mx-2 px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 transition duration-300"
+        >
+          Next &raquo;
         </a>
+      </div>
     </div>
-</div>
-</body>
+  </body>
 </html>

@@ -16,19 +16,24 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
 import com.centrale.config.ThymeleafConfig;
+import com.centrale.model.entity.Client;
 import com.centrale.model.entity.OrderItem;
 import com.centrale.model.entity.Product;
+import com.centrale.model.entity.User;
+import com.centrale.repository.impl.ClientRepositoryImpl;
 import com.centrale.repository.impl.ProductRepositoryImpl;
+import com.centrale.service.ClientService;
 import com.centrale.service.ProductService;
 
 public class CartController extends HttpServlet {
 
     private ProductService productService;
-
+    private ClientService clientService;
     @Override
     public void init() throws ServletException {
         super.init();
         productService = new ProductService(new ProductRepositoryImpl());
+        clientService = new ClientService(new ClientRepositoryImpl());
     }
 
     @Override
@@ -170,6 +175,13 @@ public class CartController extends HttpServlet {
         request.setAttribute("cartItems", cartItems);
         request.setAttribute("total", total);
         request.setAttribute("pageTitle", "Checkout");
+        
+        User user = (User) session.getAttribute("user");
+        if (user != null) {
+            Client client = clientService.findByUser(user);
+            request.setAttribute("client", client);
+        }
+        
         renderTemplate(request, response, "client/checkout");
     }
 

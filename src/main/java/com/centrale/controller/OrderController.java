@@ -86,10 +86,10 @@ public class OrderController extends HttpServlet {
             return;
         }
 
-        String shippingAddress = request.getParameter("shippingAddress");
+        String shipping_address = request.getParameter("shipping_address");
         String paymentMethod = request.getParameter("paymentMethod");
 
-        if (shippingAddress == null || shippingAddress.trim().isEmpty()
+        if (shipping_address == null || shipping_address.trim().isEmpty()
                 || paymentMethod == null || paymentMethod.trim().isEmpty()) {
             response.sendRedirect(request.getContextPath() + "/orders/checkout?error=Invalid+input");
             return;
@@ -97,24 +97,16 @@ public class OrderController extends HttpServlet {
 
         try {
             // Trim and validate input
-            shippingAddress = shippingAddress.trim();
+            shipping_address = shipping_address.trim();
             paymentMethod = paymentMethod.trim();
 
-            // Check and update client information if necessary
-            boolean clientUpdated = false;
-            if (client.getDeliveryAddress() == null || client.getDeliveryAddress().isEmpty()) {
-                client.setDeliveryAddress(shippingAddress);
-                clientUpdated = true;
-            }
-            if (client.getPaymentMethod() == null || client.getPaymentMethod().isEmpty()) {
-                client.setPaymentMethod(paymentMethod);
-                clientUpdated = true;
-            }
-            if (clientUpdated) {
-                clientService.updateClient(client);
-            }
+            // Update client information
+            client.setDeliveryAddress(shipping_address);
+            client.setPaymentMethod(paymentMethod);
+            clientService.updateClient(client);
 
-            Order order = orderService.createOrder(client, cartItems, shippingAddress, paymentMethod);
+            double total = calculateTotal(cartItems);
+            Order order = orderService.createOrder(client, cartItems, shipping_address, paymentMethod);
             session.removeAttribute("cart");
             session.setAttribute("cartCount", 0);
             response.sendRedirect(request.getContextPath() + "/orders/detail?id=" + order.getId()
