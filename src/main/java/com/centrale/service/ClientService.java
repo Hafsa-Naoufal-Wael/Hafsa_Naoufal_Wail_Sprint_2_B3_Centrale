@@ -18,10 +18,13 @@ public class ClientService {
     public Client saveClient(Client client) {
         return clientRepository.save(client);
     }
-
+    public void updateClient(Client client) {
+        clientRepository.updateClient(client);
+    }
     public Optional<Client> getClientById(Long id) {
         return clientRepository.findById(id);
     }
+
 
     public List<Client> getAllClients() {
         return clientRepository.findAll();

@@ -96,7 +96,20 @@ public class OrderController extends HttpServlet {
         }
 
         try {
-            Order order = orderService.createOrder(client, cartItems, shippingAddress.trim(), paymentMethod.trim());
+            // Trim and validate input
+            shippingAddress = shippingAddress.trim();
+            paymentMethod = paymentMethod.trim();
+
+            // Check and update client information if necessary
+            if (client.getDeliveryAddress() == null || client.getDeliveryAddress().isEmpty()) {
+                client.setDeliveryAddress(shippingAddress);
+            }
+            if (client.getPaymentMethod() == null || client.getPaymentMethod().isEmpty()) {
+                client.setPaymentMethod(paymentMethod);
+            }
+            clientService.updateClient(client);
+
+            Order order = orderService.createOrder(client, cartItems, shippingAddress, paymentMethod);
             session.removeAttribute("cart");
             session.setAttribute("cartCount", 0);
             response.sendRedirect(request.getContextPath() + "/orders/detail?id=" + order.getId()

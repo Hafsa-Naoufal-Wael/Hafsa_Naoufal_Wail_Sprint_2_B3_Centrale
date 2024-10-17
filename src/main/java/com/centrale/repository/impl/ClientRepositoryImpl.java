@@ -21,7 +21,17 @@ public class ClientRepositoryImpl implements ClientRepository {
     public ClientRepositoryImpl() {
         this.sessionFactory = HibernateUtil.getSessionFactory();
     }
-
+    @Override
+    public void updateClient(Client client) {
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            session.update(client);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            LOGGER.error("Error updating client", e);
+            throw e;
+        }
+    }
     @Override
     public Client save(Client client) {
         try (Session session = sessionFactory.openSession()) {

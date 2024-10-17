@@ -18,4 +18,5 @@ public interface ClientRepository {
     Client findByUser(User user);
     Client findByEmail(String email);
     Client saveWithSession(Client client, Session session);
+    void updateClient(Client client);
 }
