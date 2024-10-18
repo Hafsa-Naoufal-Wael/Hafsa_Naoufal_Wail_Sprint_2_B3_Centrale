@@ -18,6 +18,10 @@ public class ProductService {
     public Product saveProduct(Product product) {
         return productRepository.save(product);
     }
+    public Product updateProduct(Product product) {
+        return productRepository.update(product);
+    }
+
 
     public Optional<Product> getProductById(Long id) {
         return productRepository.findById(id);
@@ -47,5 +51,12 @@ public class ProductService {
     }
     public int getTotalProductCount() {
         return productRepository.count();
+    }
+    public List<Product> getProductsPaginated(int page, int pageSize, String search) {
+        return productRepository.findAllPaginated(page, pageSize, search);
+    }
+
+    public int getTotalProductsCount(String search) {
+        return productRepository.getTotalProductCount(search);
     }
 }

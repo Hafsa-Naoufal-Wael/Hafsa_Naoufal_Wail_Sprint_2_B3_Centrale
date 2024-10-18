@@ -42,12 +42,13 @@ public class Product {
 
     public Product() {}
 
-    public Product(String name, String description, BigDecimal price, Integer stock) {
+    public Product(String name, String description, double price, int stock) {
         this.name = name;
         this.description = description;
-        this.price = price;
+        this.price = BigDecimal.valueOf(price);
         this.stock = stock;
     }
+
 
     public Long getId() {
         return id;

@@ -13,10 +13,14 @@ public interface ProductRepository {
     Optional<Product> findById(Long id);
     List<Product> findAll();
     void delete(Product product);
+    Product update(Product product);
     Product findByName(String name);
     List<Product> findByPriceLessThan(BigDecimal price);
     List<Product> findByStockGreaterThan(Integer minStock);
     Session getSession();
     List<Product> findAllPaginated(int page, int size);
     int count();
+    List<Product> findAllPaginated(int page, int pageSize, String search);
+    int getTotalProductCount(String search);
+
 }
