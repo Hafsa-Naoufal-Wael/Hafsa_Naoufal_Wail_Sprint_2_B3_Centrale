@@ -91,10 +91,12 @@ INSERT INTO clients (id, phone_number, address, delivery_address, payment_method
 (4, '987-654-3210', '456 Elm St, Town, Country', '456 Elm St, Town, Country', 'PayPal');
 
 INSERT INTO products (name, description, price, stock) VALUES
-('Laptop', 'High-performance laptop', 999.99, 50),
-('Smartphone', 'Latest model smartphone', 699.99, 100),
-('Headphones', 'Noise-cancelling headphones', 199.99, 200),
-('Tablet', '10-inch tablet with stylus', 349.99, 75);
+    ('Whole Milk', 'Fresh whole milk, rich in nutrients and perfect for daily consumption.', 2.99, 150),
+    ('Skim Milk', 'Low-fat skim milk with all the essential vitamins and minerals.', 2.49, 100),
+    ('Almond Milk', 'Non-dairy almond milk, great for lactose-intolerant or vegan diets.', 3.99, 120),
+    ('Chocolate Milk', 'Delicious chocolate-flavored milk, a favorite for kids and adults alike.', 3.50, 200),
+    ('Goat Milk', 'Pure goat milk with a unique flavor, ideal for people with cow milk allergies.', 4.50, 80),
+    ('Organic Whole Milk', 'Certified organic whole milk from grass-fed cows.', 4.99, 90);
 
 INSERT INTO orders (client_id, status, total, shipping_address) VALUES
 (3, 'PENDING', 1199.98, '123 Main St, City, Country'),
