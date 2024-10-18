@@ -8,17 +8,29 @@
   <body class="bg-gray-100">
     <div class="container mx-auto px-4 py-8">
       <h1 class="text-3xl font-bold mb-4">Manage Orders</h1>
-      
+
       <!-- Search form -->
       <form th:action="@{/admin/orders}" method="get" class="mb-4">
-        <input type="text" name="search" th:value="${param.search}" placeholder="Search orders..." 
-               class="px-4 py-2 border rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-        <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-r-md hover:bg-blue-600">Search</button>
+        <input
+          type="text"
+          name="search"
+          th:value="${param.search}"
+          placeholder="Search orders..."
+          class="px-4 py-2 border rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <button
+          type="submit"
+          class="px-4 py-2 bg-blue-500 text-white rounded-r-md hover:bg-blue-600"
+        >
+          Search
+        </button>
       </form>
 
       <table class="w-full bg-white shadow-md rounded mb-4">
         <thead>
-          <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+          <tr
+            class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal"
+          >
             <th class="py-3 px-6 text-left">Order ID</th>
             <th class="py-3 px-6 text-left">Customer</th>
             <th class="py-3 px-6 text-left">Date</th>
@@ -27,22 +39,62 @@
           </tr>
         </thead>
         <tbody class="text-gray-600 text-sm font-light">
-          <tr th:each="order : ${orders}" class="border-b border-gray-200 hover:bg-gray-100">
-            <td th:text="${order.id}" class="py-3 px-6 text-left whitespace-nowrap"></td>
-            <td th:text="${order.client.user.firstName + ' ' + order.client.user.lastName}" class="py-3 px-6 text-left"></td>
-            <td th:text="${order.orderDate != null ? (#temporals != null ? #temporals.format(order.orderDate, 'dd-MM-yyyy HH:mm') : order.orderDate) : 'N/A'}" class="py-3 px-6 text-left"></td>
-            <td th:text="${order.status}" class="py-3 px-6 text-left"></td>
+          <tr
+            th:each="order : ${orders}"
+            class="border-b border-gray-200 hover:bg-gray-100"
+          >
+            <td
+              th:text="${order.id}"
+              class="py-3 px-6 text-left whitespace-nowrap"
+            ></td>
+            <td
+              th:text="${order.client.user.firstName + ' ' + order.client.user.lastName}"
+              class="py-3 px-6 text-left"
+            ></td>
+            <td
+              th:text="${order.orderDate != null ? (#temporals != null ? #temporals.format(order.orderDate, 'dd-MM-yyyy HH:mm') : order.orderDate) : 'N/A'}"
+              class="py-3 px-6 text-left"
+            ></td>
+            <td
+              th:text="${order.status.name()}"
+              class="py-3 px-6 text-left"
+            ></td>
             <td class="py-3 px-6 text-center">
-              <select th:id="'status-' + ${order.id}" class="bg-white border border-gray-300 rounded-md px-2 py-1">
-                <option value="PENDING" th:selected="${order.status == 'PENDING'}">Pending</option>
-                <option value="PROCESSING" th:selected="${order.status == 'PROCESSING'}">Processing</option>
-                <option value="SHIPPED" th:selected="${order.status == 'SHIPPED'}">Shipped</option>
-                <option value="DELIVERED" th:selected="${order.status == 'DELIVERED'}">Delivered</option>
-                <option value="CANCELLED" th:selected="${order.status == 'CANCELLED'}">Cancelled</option>
+              <select
+                th:id="'status-' + ${order.id}"
+                class="bg-white border border-gray-300 rounded-md px-2 py-1"
+              >
+                <option
+                  value="PENDING"
+                  th:selected="${order.status.name() == 'PENDING'}"
+                >
+                  Pending
+                </option>
+                <option
+                  value="PROCESSING"
+                  th:selected="${order.status.name() == 'PROCESSING'}"
+                >
+                  Processing
+                </option>
+                <option
+                  value="SHIPPED"
+                  th:selected="${order.status.name() == 'SHIPPED'}"
+                >
+                  Shipped
+                </option>
+                <option
+                  value="DELIVERED"
+                  th:selected="${order.status.name() == 'DELIVERED'}"
+                >
+                  Delivered
+                </option>
+                <option
+                  value="CANCELLED"
+                  th:selected="${order.status.name() == 'CANCELLED'}"
+                >
+                  Cancelled
+                </option>
               </select>
-              <button th:onclick="'updateOrderStatus(' + ${order.id} + ')'" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded ml-2">
-                Update
-              </button>
             </td>
           </tr>
         </tbody>
@@ -53,13 +105,25 @@
         <nav aria-label="Page navigation">
           <ul class="inline-flex">
             <li th:if="${currentPage > 1}">
-              <a th:href="@{/admin/orders(page=${currentPage - 1}, search=${param.search})}" class="px-3 py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700">Previous</a>
+              <a
+                th:href="@{/admin/orders(page=${currentPage - 1}, search=${param.search})}"
+                class="px-3 py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700"
+                >Previous</a
+              >
             </li>
             <li th:each="pageNum : ${#numbers.sequence(1, totalPages)}">
-              <a th:href="@{/admin/orders(page=${pageNum}, search=${param.search})}" th:text="${pageNum}" th:class="${pageNum == currentPage ? 'px-3 py-2 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700' : 'px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700'}"></a>
+              <a
+                th:href="@{/admin/orders(page=${pageNum}, search=${param.search})}"
+                th:text="${pageNum}"
+                th:class="${pageNum == currentPage ? 'px-3 py-2 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700' : 'px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700'}"
+              ></a>
             </li>
             <li th:if="${currentPage < totalPages}">
-              <a th:href="@{/admin/orders(page=${currentPage + 1}, search=${param.search})}" class="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700">Next</a>
+              <a
+                th:href="@{/admin/orders(page=${currentPage + 1}, search=${param.search})}"
+                class="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700"
+                >Next</a
+              >
             </li>
           </ul>
         </nav>
@@ -67,29 +131,48 @@
     </div>
 
     <script th:inline="javascript">
-    function updateOrderStatus(orderId) {
-        const status = document.getElementById('status-' + orderId).value;
-        fetch(`${/*[[@{/admin/orders/updateStatus}]]*/''}?id=${orderId}&status=${status}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
+      /*<![CDATA[*/
+      const contextPath = /*[[@{/}]]*/ "/";
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const statusSelects = document.querySelectorAll(
+          'select[id^="status-"]'
+        );
+        statusSelects.forEach((select) => {
+          select.addEventListener("change", function () {
+            const orderId = this.id.split("-")[1];
+            const newStatus = this.value;
+            updateOrderStatus(orderId, newStatus);
+          });
+        });
+      });
+
+      function updateOrderStatus(orderId, newStatus) {
+        fetch(`${contextPath}admin/orders/updateStatus`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: `id=${orderId}&status=${newStatus}`,
         })
-        .then(response => {
+          .then((response) => {
             if (!response.ok) {
-                throw new Error('Failed to update order status');
+              return response.text().then((text) => {
+                throw new Error(text);
+              });
             }
             return response.text();
-        })
-        .then(() => {
-            alert('Order status updated successfully');
-            location.reload(); // Reload the page to reflect the changes
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Failed to update order status');
-        });
-    }
+          })
+          .then(() => {
+            alert("Order status updated successfully");
+            location.reload();
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+            alert("Failed to update order status: " + error.message);
+          });
+      }
+      /*]]>*/
     </script>
   </body>
 </html>
