@@ -1,222 +1,251 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-  <head>
-    <meta charset="UTF-8" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title th:text="${pageTitle}">Manage Products</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-    />
-  </head>
-  <body class="bg-gray-100">
-    <div class="container mx-auto px-4 py-8">
-      <h1 class="text-3xl font-bold mb-6 text-gray-800">Manage Products</h1>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div th:replace="fragments/header :: header"></div>
 
-      <div class="mb-6 flex justify-between items-center">
-        <button
-          onclick="openAddModal()"
-          class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out"
-        >
-          <i class="fas fa-plus mr-2"></i>Add New Product
-        </button>
+    <div class="container mx-auto px-4 py-28">
+        <div class="max-w-6xl mx-auto">
+            <h1 class="text-3xl font-bold mb-6 text-gray-800">Manage Products</h1>
 
-        <form th:action="@{/admin/products}" method="get" class="flex">
-          <input
-            type="text"
-            name="search"
-            th:value="${param.search}"
-            placeholder="Search products"
-            class="px-4 py-2 border border-gray-300 rounded-l focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-          <button
-            type="submit"
-            class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-r transition duration-300 ease-in-out"
-          >
-            <i class="fas fa-search mr-2"></i>Search
-          </button>
-        </form>
-      </div>
+            <div class="mb-6 flex justify-between items-center">
+                <button
+                    onclick="openAddModal()"
+                    class="px-6 py-3 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-600 transition duration-300 flex items-center gap-2"
+                >
+                    <i class="fas fa-plus"></i>
+                    Add New Product
+                </button>
 
-      <div class="bg-white shadow-md rounded-lg overflow-hidden">
-        <table class="min-w-full leading-normal">
-          <thead>
-            <tr
-              class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal"
-            >
-              <th class="py-3 px-6 text-left">ID</th>
-              <th class="py-3 px-6 text-left">Name</th>
-              <th class="py-3 px-6 text-left">Price</th>
-              <th class="py-3 px-6 text-left">Stock</th>
-              <th class="py-3 px-6 text-center">Actions</th>
-            </tr>
-          </thead>
-          <tbody class="text-gray-600 text-sm" id="productTableBody">
-            <tr
-              th:each="product : ${products}"
-              class="border-b border-gray-200 hover:bg-gray-100"
-            >
-              <td
-                th:text="${product.id}"
-                class="py-3 px-6 text-left whitespace-nowrap"
-              ></td>
-              <td th:text="${product.name}" class="py-3 px-6 text-left"></td>
-              <td
-                th:text="${product.price + ' DH'}"
-                class="py-3 px-6 text-left"
-              ></td>
-              <td th:text="${product.stock}" class="py-3 px-6 text-left"></td>
-              <td class="py-3 px-6 text-center">
-                <div class="flex item-center justify-center">
-                  <button
-                    th:onclick="'openViewModal(' + ${product.id} + ')'"
-                    class="text-green-500 hover:text-green-700 mx-2"
-                  >
-                    <i class="fas fa-eye"></i>
-                  </button>
-                  <button
-                    th:onclick="'openEditModal(' + ${product.id} + ')'"
-                    class="text-blue-500 hover:text-blue-700 mx-2"
-                  >
-                    <i class="fas fa-edit"></i>
-                  </button>
-                  <button
-                    th:onclick="'deleteProduct(' + ${product.id} + ')'"
-                    class="text-red-500 hover:text-red-700 mx-2"
-                  >
-                    <i class="fas fa-trash"></i>
-                  </button>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+                <form th:action="@{/admin/products}" method="get" class="flex gap-2">
+                    <div class="relative flex-1">
+                        <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                        <input
+                            type="text"
+                            name="search"
+                            th:value="${param.search}"
+                            placeholder="Search products"
+                            class="w-full pl-12 pr-4 py-3 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition duration-200"
+                        />
+                    </div>
+                    <button
+                        type="submit"
+                        class="px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition duration-300 flex items-center gap-2"
+                    >
+                        <i class="fas fa-search"></i>
+                        Search
+                    </button>
+                </form>
+            </div>
+
+            <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                <table class="min-w-full leading-normal">
+                    <thead>
+                        <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                            <th class="py-3 px-6 text-left">ID</th>
+                            <th class="py-3 px-6 text-left">Name</th>
+                            <th class="py-3 px-6 text-left">Price</th>
+                            <th class="py-3 px-6 text-left">Stock</th>
+                            <th class="py-3 px-6 text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-gray-600 text-sm" id="productTableBody">
+                        <tr
+                            th:each="product : ${products}"
+                            class="border-b border-gray-200 hover:bg-gray-100"
+                        >
+                            <td th:text="${product.id}" class="py-3 px-6 text-left whitespace-nowrap"></td>
+                            <td th:text="${product.name}" class="py-3 px-6 text-left"></td>
+                            <td th:text="${product.price + ' DH'}" class="py-3 px-6 text-left"></td>
+                            <td th:text="${product.stock}" class="py-3 px-6 text-left"></td>
+                            <td class="py-3 px-6 text-center">
+                                <div class="flex item-center justify-center">
+                                    <button
+                                        th:onclick="'openViewModal(' + ${product.id} + ')'"
+                                        class="text-green-500 hover:text-green-700 mx-2"
+                                    >
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button
+                                        th:onclick="'openEditModal(' + ${product.id} + ')'"
+                                        class="text-blue-500 hover:text-blue-700 mx-2"
+                                    >
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button
+                                        th:onclick="'deleteProduct(' + ${product.id} + ')'"
+                                        class="text-red-500 hover:text-red-700 mx-2"
+                                    >
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination -->
+            <div th:if="${totalPages > 1}" class="mt-8 flex justify-center">
+                <nav aria-label="Page navigation">
+                    <ul class="inline-flex space-x-2">
+                        <li th:if="${currentPage > 1}">
+                            <a th:href="@{/admin/products(page=${currentPage - 1}, search=${param.search})}"
+                               class="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition duration-300">
+                                Previous
+                            </a>
+                        </li>
+                        <li th:each="pageNum : ${#numbers.sequence(1, totalPages)}">
+                            <a th:href="@{/admin/products(page=${pageNum}, search=${param.search})}"
+                               th:text="${pageNum}"
+                               th:class="${pageNum == currentPage ? 'px-4 py-2 bg-blue-500 text-white rounded-lg' : 'px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition duration-300'}">
+                            </a>
+                        </li>
+                        <li th:if="${currentPage < totalPages}">
+                            <a th:href="@{/admin/products(page=${currentPage + 1}, search=${param.search})}"
+                               class="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition duration-300">
+                                Next
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
     </div>
+
+    <div th:replace="fragments/footer :: footer"></div>
 
     <!-- Add Product Modal -->
     <div
       id="addProductModal"
-      class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden"
+      class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50"
     >
-      <div
-        class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white"
-      >
-        <h3 class="text-lg font-medium leading-6 text-gray-900 mb-4">
-          Add New Product
-        </h3>
-        <form id="addProductForm">
-          <input
-            type="text"
-            name="name"
-            placeholder="Product Name"
-            class="w-full p-2 mb-4 border rounded"
-            required
-          />
-          <input
-            type="number"
-            name="price"
-            placeholder="Price"
-            step="0.01"
-            min="0"
-            class="w-full p-2 mb-4 border rounded"
-            required
-          />
-          <input
-            type="number"
-            name="stock"
-            placeholder="Stock"
-            min="0"
-            class="w-full p-2 mb-4 border rounded"
-            required
-          />
-          <textarea
-            name="description"
-            placeholder="Description"
-            class="w-full p-2 mb-4 border rounded"
-          ></textarea>
-          <div class="flex justify-end">
-            <button
-              type="button"
-              onclick="closeAddModal()"
-              class="px-4 py-2 bg-gray-200 text-gray-800 rounded mr-2"
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              class="px-4 py-2 bg-blue-500 text-white rounded"
-            >
-              Add Product
-            </button>
-          </div>
-        </form>
-      </div>
+        <div
+          class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white"
+        >
+            <h3 class="text-lg font-medium leading-6 text-gray-900 mb-4">
+                Add New Product
+            </h3>
+            <form id="addProductForm">
+                <input
+                    type="text"
+                    name="name"
+                    placeholder="Product Name"
+                    class="w-full p-2 mb-4 border rounded"
+                    required
+                />
+                <input
+                    type="number"
+                    name="price"
+                    placeholder="Price"
+                    step="0.01"
+                    min="0"
+                    class="w-full p-2 mb-4 border rounded"
+                    required
+                />
+                <input
+                    type="number"
+                    name="stock"
+                    placeholder="Stock"
+                    min="0"
+                    class="w-full p-2 mb-4 border rounded"
+                    required
+                />
+                <textarea
+                    name="description"
+                    placeholder="Description"
+                    class="w-full p-2 mb-4 border rounded"
+                    required
+                ></textarea>
+                <div class="flex justify-end">
+                    <button
+                        type="button"
+                        onclick="closeAddModal()"
+                        class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md mr-2"
+                    >
+                        Cancel
+                    </button>
+                    <button
+                        type="submit"
+                        class="px-4 py-2 bg-blue-500 text-white rounded-md"
+                    >
+                        Add Product
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
 
     <!-- Edit Product Modal -->
     <div
       id="editProductModal"
-      class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden"
+      class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50"
     >
-      <div
-        class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white"
-      >
-        <h3 class="text-lg font-medium leading-6 text-gray-900 mb-4">
-          Edit Product
-        </h3>
-        <form id="editProductForm">
-          <input type="hidden" id="editProductId" name="id" />
-          <input
-            type="text"
-            id="editProductName"
-            name="name"
-            placeholder="Product Name"
-            class="w-full p-2 mb-4 border rounded"
-            required
-          />
-          <input
-            type="number"
-            id="editProductPrice"
-            name="price"
-            placeholder="Price"
-            step="0.01"
-            min="0"
-            class="w-full p-2 mb-4 border rounded"
-            required
-          />
-          <input
-            type="number"
-            id="editProductStock"
-            name="stock"
-            placeholder="Stock"
-            min="0"
-            class="w-full p-2 mb-4 border rounded"
-            required
-          />
-          <textarea
-            id="editProductDescription"
-            name="description"
-            placeholder="Description"
-            class="w-full p-2 mb-4 border rounded"
-          ></textarea>
-          <div class="flex justify-end">
-            <button
-              type="button"
-              onclick="closeEditModal()"
-              class="px-4 py-2 bg-gray-200 text-gray-800 rounded mr-2"
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              class="px-4 py-2 bg-blue-500 text-white rounded"
-            >
-              Update Product
-            </button>
-          </div>
-        </form>
-      </div>
+        <div
+          class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white"
+        >
+            <h3 class="text-lg font-medium leading-6 text-gray-900 mb-4">
+                Edit Product
+            </h3>
+            <form id="editProductForm">
+                <input type="hidden" id="editProductId" name="id" />
+                <input
+                    type="text"
+                    id="editProductName"
+                    name="name"
+                    placeholder="Product Name"
+                    class="w-full p-2 mb-4 border rounded"
+                    required
+                />
+                <input
+                    type="number"
+                    id="editProductPrice"
+                    name="price"
+                    placeholder="Price"
+                    step="0.01"
+                    min="0"
+                    class="w-full p-2 mb-4 border rounded"
+                    required
+                />
+                <input
+                    type="number"
+                    id="editProductStock"
+                    name="stock"
+                    placeholder="Stock"
+                    min="0"
+                    class="w-full p-2 mb-4 border rounded"
+                    required
+                />
+                <textarea
+                    id="editProductDescription"
+                    name="description"
+                    placeholder="Description"
+                    class="w-full p-2 mb-4 border rounded"
+                    required
+                ></textarea>
+                <div class="flex justify-end">
+                    <button
+                        type="button"
+                        onclick="closeEditModal()"
+                        class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md mr-2"
+                    >
+                        Cancel
+                    </button>
+                    <button
+                        type="submit"
+                        class="px-4 py-2 bg-blue-500 text-white rounded-md"
+                    >
+                        Update Product
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
 
     <!-- View Product Modal -->
@@ -224,30 +253,29 @@
       id="viewProductModal"
       class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50"
     >
-      <div
-        class="relative top-20 mx-auto p-5 border w-11/12 max-w-md shadow-lg rounded-md bg-white"
-      >
-        <div class="mt-3 text-center">
-          <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">
-            Product Details
-          </h3>
-          <div id="viewProductContent" class="mt-2 px-7 py-3">
-            <!-- Product details will be inserted here -->
-          </div>
-          <div class="items-center px-4 py-3">
-            <button
-              id="closeViewModalBtn"
-              type="button"
-              onclick="closeViewModal()"
-              class="px-4 py-2 bg-blue-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300"
-            >
-              Close
-            </button>
-          </div>
+        <div
+          class="relative top-20 mx-auto p-5 border w-11/12 max-w-md shadow-lg rounded-md bg-white"
+        >
+            <div class="mt-3 text-center">
+                <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">
+                    Product Details
+                </h3>
+                <div id="viewProductContent" class="mt-2 px-7 py-3">
+                    <!-- Product details will be inserted here -->
+                </div>
+                <div class="items-center px-4 py-3">
+                    <button
+                        id="closeViewModalBtn"
+                        type="button"
+                        onclick="closeViewModal()"
+                        class="px-4 py-2 bg-blue-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300"
+                    >
+                        Close
+                    </button>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-
     <script th:inline="javascript">
       /*<![CDATA[*/
       const contextPath = /*[[@{/}]]*/ "/";

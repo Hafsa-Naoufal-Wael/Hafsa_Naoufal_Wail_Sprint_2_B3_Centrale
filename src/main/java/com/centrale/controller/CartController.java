@@ -47,6 +47,7 @@ public class CartController extends HttpServlet {
             case "checkout":
                 showCheckout(request, response);
                 break;
+
             default:
                 response.sendError(HttpServletResponse.SC_NOT_FOUND);
         }

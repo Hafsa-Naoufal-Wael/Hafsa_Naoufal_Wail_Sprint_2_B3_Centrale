@@ -1,115 +1,117 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title th:text="${pageTitle}"></title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title th:text="${pageTitle}">Manage Users</title>
     <script src="https://cdn.tailwindcss.com"></script>
-  </head>
-  <body class="bg-gray-100">
-    <div class="container mx-auto px-4 py-8">
-      <h1 class="text-3xl font-bold mb-4">Manage Users</h1>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+</head>
+<body class="bg-gray-50 min-h-screen">
 
-      <!-- Search form and Create User button -->
-      <div class="flex justify-between items-center mb-4">
-        <form th:action="@{/admin/users}" method="get" class="flex">
-          <input
-            type="text"
-            name="search"
-            th:value="${param.search}"
-            placeholder="Search users"
-            class="px-4 py-2 border rounded-l"
-          />
-          <button
-            type="submit"
-            class="bg-blue-500 text-white px-4 py-2 rounded-r"
-          >
-            Search
-          </button>
-        </form>
-        <button
-          onclick="openCreateModal()"
-          class="bg-green-500 text-white px-4 py-2 rounded"
-        >
-          Create User
-        </button>
-      </div>
+    <div class="container mx-auto px-4 py-28">
+        <div class="max-w-6xl mx-auto">
+            <h1 class="text-3xl font-bold mb-6 text-gray-800">Manage Users</h1>
 
-      <!-- Users table -->
-      <table class="w-full bg-white shadow-md rounded mb-4">
-        <thead>
-          <tr
-            class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal"
-          >
-            <th class="py-3 px-6 text-left">ID</th>
-            <th class="py-3 px-6 text-left">Name</th>
-            <th class="py-3 px-6 text-left">Email</th>
-            <th class="py-3 px-6 text-left">Role</th>
-            <th class="py-3 px-6 text-center">Actions</th>
-          </tr>
-        </thead>
-        <tbody class="text-gray-600 text-sm font-light">
-          <tr
-            th:each="user : ${users}"
-            class="border-b border-gray-200 hover:bg-gray-100"
-          >
-            <td
-              th:text="${user.id}"
-              class="py-3 px-6 text-left whitespace-nowrap"
-            ></td>
-            <td
-              th:text="${user.firstName + ' ' + user.lastName}"
-              class="py-3 px-6 text-left"
-            ></td>
-            <td th:text="${user.email}" class="py-3 px-6 text-left"></td>
-            <td th:text="${user.role}" class="py-3 px-6 text-left"></td>
-            <td class="py-3 px-6 text-center">
-              <th:block th:if="${admin.accessLevel == 2}">
+            <div class="mb-6 flex justify-between items-center">
                 <button
-                  th:onclick="'openEditModal(' + ${user.id} + ')'"
-                  class="text-blue-500 hover:text-blue-700 mr-2"
+                    onclick="openCreateModal()"
+                    class="px-6 py-3 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-600 transition duration-300 flex items-center gap-2"
                 >
-                  Edit
+                    <i class="fas fa-plus"></i>
+                    Create User
                 </button>
-                <button
-                  th:onclick="'deleteUser(' + ${user.id} + ')'"
-                  class="text-red-500 hover:text-red-700"
-                >
-                  Delete
-                </button>
-              </th:block>
-            </td>
-          </tr>
-        </tbody>
-      </table>
 
-      <!-- Pagination -->
-      <div class="mt-4 flex justify-center">
-        <a
-          th:if="${currentPage > 1}"
-          th:href="@{/admin/users(page=${currentPage - 1}, search=${param.search})}"
-          class="mx-2 px-4 py-2 bg-gray-200 text-gray-700 rounded"
-          >&laquo; Previous</a
-        >
-        <span th:each="pageNum : ${#numbers.sequence(1, totalPages)}">
-          <a
-            th:if="${pageNum != currentPage}"
-            th:href="@{/admin/users(page=${pageNum}, search=${param.search})}"
-            th:text="${pageNum}"
-            class="mx-2 px-4 py-2 bg-gray-200 text-gray-700 rounded"
-          ></a>
-          <span
-            th:if="${pageNum == currentPage}"
-            th:text="${pageNum}"
-            class="mx-2 px-4 py-2 bg-blue-500 text-white rounded"
-          ></span>
-        </span>
-        <a
-          th:if="${currentPage < totalPages}"
-          th:href="@{/admin/users(page=${currentPage + 1}, search=${param.search})}"
-          class="mx-2 px-4 py-2 bg-gray-200 text-gray-700 rounded"
-          >Next &raquo;</a
-        >
-      </div>
+                <form th:action="@{/admin/users}" method="get" class="flex gap-2">
+                    <div class="relative flex-1">
+                        <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                        <input
+                            type="text"
+                            name="search"
+                            th:value="${param.search}"
+                            placeholder="Search users"
+                            class="w-full pl-12 pr-4 py-3 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition duration-200"
+                        />
+                    </div>
+                    <button
+                        type="submit"
+                        class="px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition duration-300 flex items-center gap-2"
+                    >
+                        <i class="fas fa-search"></i>
+                        Search
+                    </button>
+                </form>
+            </div>
+
+            <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                <table class="min-w-full leading-normal">
+                    <thead>
+                        <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                            <th class="py-3 px-6 text-left">ID</th>
+                            <th class="py-3 px-6 text-left">Name</th>
+                            <th class="py-3 px-6 text-left">Email</th>
+                            <th class="py-3 px-6 text-left">Role</th>
+                            <th class="py-3 px-6 text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-gray-600 text-sm">
+                        <tr
+                            th:each="user : ${users}"
+                            class="border-b border-gray-200 hover:bg-gray-100"
+                        >
+                            <td th:text="${user.id}" class="py-3 px-6 text-left whitespace-nowrap"></td>
+                            <td th:text="${user.firstName + ' ' + user.lastName}" class="py-3 px-6 text-left"></td>
+                            <td th:text="${user.email}" class="py-3 px-6 text-left"></td>
+                            <td th:text="${user.role}" class="py-3 px-6 text-left"></td>
+                            <td class="py-3 px-6 text-center">
+                                <div class="flex item-center justify-center">
+                                    <button
+                                        th:if="${admin.accessLevel == 2}"
+                                        th:onclick="'openEditModal(' + ${user.id} + ')'"
+                                        class="text-blue-500 hover:text-blue-700 mx-2"
+                                    >
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button
+                                        th:if="${admin.accessLevel == 2}"
+                                        th:onclick="'deleteUser(' + ${user.id} + ')'"
+                                        class="text-red-500 hover:text-red-700 mx-2"
+                                    >
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination -->
+            <div th:if="${totalPages > 1}" class="mt-8 flex justify-center">
+                <nav aria-label="Page navigation">
+                    <ul class="inline-flex space-x-2">
+                        <li th:if="${currentPage > 1}">
+                            <a th:href="@{/admin/users(page=${currentPage - 1}, search=${param.search})}"
+                               class="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition duration-300">
+                                Previous
+                            </a>
+                        </li>
+                        <li th:each="pageNum : ${#numbers.sequence(1, totalPages)}">
+                            <a th:href="@{/admin/users(page=${pageNum}, search=${param.search})}"
+                               th:text="${pageNum}"
+                               th:class="${pageNum == currentPage ? 'px-4 py-2 bg-blue-500 text-white rounded-lg' : 'px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition duration-300'}">
+                            </a>
+                        </li>
+                        <li th:if="${currentPage < totalPages}">
+                            <a th:href="@{/admin/users(page=${currentPage + 1}, search=${param.search})}"
+                               class="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition duration-300">
+                                Next
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
     </div>
 
     <!-- Create User Modal -->

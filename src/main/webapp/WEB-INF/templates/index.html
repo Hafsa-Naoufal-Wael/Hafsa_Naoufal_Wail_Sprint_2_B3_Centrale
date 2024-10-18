@@ -1,217 +1,162 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title th:text="${pageTitle}">Welcome to Our Store</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
-    <script th:inline="javascript">
-      /*<![CDATA[*/
-      const contextPath = /*[[@{/}]]*/ "";
-
-      function openQuickViewModal(productId) {
-        console.log("Opening quick view modal for product ID:", productId);
-        fetch(`${contextPath}admin/products/get?id=${productId}`)
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error("Product not found");
-            }
-            return response.json();
-          })
-          .then((product) => {
-            console.log("Received product data:", product);
-            const content = `
-              <div class="text-left">
-                <h4 class="text-xl font-semibold mb-2">${product.name}</h4>
-                <p class="text-sm text-gray-600 mb-4">${product.description}</p>
-                <p class="text-lg font-semibold text-green-600 mb-2">$${product.price.toFixed(2)}</p>
-                <p class="text-sm text-gray-500">Stock: ${product.stock}</p>
-                <form class="mt-4" action="${contextPath}cart/add" method="post">
-                  <input type="hidden" name="productId" value="${product.id}" />
-                  <div class="flex items-center">
-                    <input
-                      type="number"
-                      name="quantity"
-                      value="1"
-                      min="1"
-                      max="${product.stock}"
-                      class="w-16 px-2 py-1 border rounded mr-2"
-                    />
-                    <button
-                      type="submit"
-                      class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                    >
-                      <i class="fas fa-cart-plus mr-2"></i>Add to Cart
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <nav class="bg-white shadow-sm">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <h1 class="text-2xl font-bold text-gray-800">
+                    <i class="fas fa-store text-blue-500 mr-2"></i>Our Store
+                </h1>
+                <a th:href="@{/cart}" class="relative group">
+                    <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                    <button class="bg-blue-500 hover:bg-blue-600 text-white rounded-full p-2 transition duration-300">
+                        <i class="fas fa-shopping-cart"></i>
                     </button>
-                  </div>
-                </form>
-              </div>
-            `;
-            document.getElementById("quickViewProductContent").innerHTML = content;
-            document.getElementById("quickViewProductModal").classList.remove("hidden");
-          })
-          .catch((error) => {
-            console.error("Error:", error);
-            alert("Error loading product details. Please try again.");
-          });
-      }
-
-      function closeQuickViewModal() {
-        document.getElementById("quickViewProductModal").classList.add("hidden");
-      }
-      /*]]>*/
-    </script>
-  </head>
-  <body class="bg-gray-100">
-    <div th:fragment="content" class="container mx-auto px-4 py-8">
-      <h1 class="text-4xl font-bold mb-4 text-center text-gray-800">
-        Welcome to Our Store
-      </h1>
-      <p class="text-xl mb-8 text-center text-gray-600">
-        Discover our wide range of products!
-      </p>
-
-      <!-- Search Bar and Cart Button -->
-      <div class="mb-8 flex flex-col sm:flex-row justify-center items-center">
-        <form th:action="@{/}" method="get" class="flex items-center mb-4 sm:mb-0 sm:mr-4 w-full sm:w-auto">
-          <input
-            type="text"
-            name="search"
-            th:value="${param.search}"
-            placeholder="Search products..."
-            class="w-full sm:w-64 px-4 py-2 rounded-l-lg border-t border-b border-l text-gray-800 border-gray-200 bg-white focus:outline-none focus:border-blue-500"
-          />
-          <button
-            type="submit"
-            class="px-4 py-2 rounded-r-lg bg-blue-500 text-white font-semibold hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50"
-          >
-            <i class="fas fa-search mr-2"></i>Search
-          </button>
-        </form>
-        <a
-          th:href="@{/cart}"
-          class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full sm:w-auto text-center"
-        >
-          <i class="fas fa-shopping-cart mr-2"></i>View Cart
-        </a>
-      </div>
-
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold mb-4 text-gray-800">Our Products</h2>
-        <div
-          th:if="${not #lists.isEmpty(products)}"
-          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
-        >
-          <div
-            th:each="product : ${products}"
-            class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300"
-          >
-            <h3
-              th:text="${product.name}"
-              class="text-xl font-semibold mb-2 text-gray-800"
-            >
-              Product Name
-            </h3>
-            <p th:text="${product.description}" class="mb-4 text-gray-600 line-clamp-3">
-              Product Description
-            </p>
-            <p
-              th:text="${product.price + ' DH'}"
-              class="font-bold mb-4 text-green-600"
-            >
-              Price: 0.00 DH
-            </p>
-            <div class="flex flex-col sm:flex-row items-center justify-between">
-              <button
-                th:onclick="'openQuickViewModal(' + ${product.id} + ')'"
-                class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mb-2 sm:mb-0 w-full sm:w-auto"
-              >
-                <i class="fas fa-eye mr-2"></i>Quick View
-              </button>
-              <form
-                th:action="${session.user != null} ? @{/cart/add} : @{/auth/login}"
-                method="post"
-                class="flex items-center w-full sm:w-auto"
-              >
-                <input type="hidden" name="productId" th:value="${product.id}" />
-                <input type="hidden" name="returnUrl" th:value="${#httpServletRequest.requestURI}" />
-                <input
-                  type="number"
-                  name="quantity"
-                  th:id="'quantity-' + ${product.id}"
-                  value="1"
-                  min="1"
-                  class="w-16 px-2 py-1 border rounded mr-2"
-                />
-                <button
-                  type="submit"
-                  class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full sm:w-auto"
-                >
-                  <i class="fas fa-cart-plus mr-2"></i>Add
-                </button>
-              </form>
+                </a>
             </div>
-          </div>
         </div>
-        <p
-          th:unless="${not #lists.isEmpty(products)}"
-          class="text-gray-500 text-center"
-        >
-          No products available at the moment.
-        </p>
+    </nav>
+
+    <div th:fragment="content" class="container mx-auto px-4 py-8">
+        <div class="max-w-2xl mx-auto mb-12 text-center">
+            <h2 class="text-4xl font-bold mb-4 text-gray-800">
+                Discover Amazing Products
+            </h2>
+            <p class="text-lg text-gray-600">
+                Browse our carefully curated collection of premium items
+            </p>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="max-w-2xl mx-auto mb-12">
+            <form th:action="@{/}" method="get" class="flex gap-2">
+                <div class="relative flex-1">
+                    <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                    <input
+                        type="text"
+                        name="search"
+                        th:value="${param.search}"
+                        placeholder="Search products..."
+                        class="w-full pl-12 pr-4 py-3 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition duration-200"
+                    />
+                </div>
+                <button
+                    type="submit"
+                    class="px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition duration-300 flex items-center gap-2"
+                >
+                    Search
+                </button>
+            </form>
+        </div>
+
+        <!-- Products Grid -->
+        <section class="mb-12">
+            <div
+                th:if="${not #lists.isEmpty(products)}"
+                class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
+            >
+                <div
+                    th:each="product : ${products}"
+                    class="bg-white rounded-xl shadow-sm hover:shadow-md transition duration-300 overflow-hidden group"
+                >
+                    <!-- Product Image Placeholder -->
+                    <div class="h-48 bg-gray-100 group-hover:bg-gray-200 transition duration-300"></div>
+                    
+                    <div class="p-6">
+                        <h3
+                            th:text="${product.name}"
+                            class="text-xl font-semibold mb-2 text-gray-800"
+                        >
+                            Product Name
+                        </h3>
+                        <p
+                            th:text="${product.description}"
+                            class="mb-4 text-gray-600 line-clamp-2 text-sm"
+                        >
+                            Product Description
+                        </p>
+                        <p
+                            th:text="${product.price + ' DH'}"
+                            class="text-2xl font-bold mb-4 text-blue-500"
+                        >
+                            Price: 0.00 DH
+                        </p>
+                        
+                        <form
+                            th:action="${session.user != null} ? @{/cart/add} : @{/auth/login}"
+                            method="post"
+                            class="flex gap-2"
+                        >
+                            <input type="hidden" name="productId" th:value="${product.id}" />
+                            <input type="hidden" name="returnUrl" th:value="${#httpServletRequest.requestURI}" />
+                            <input
+                                type="number"
+                                name="quantity"
+                                th:id="'quantity-' + ${product.id}"
+                                value="1"
+                                min="1"
+                                class="w-20 px-3 py-2 border rounded-lg text-center"
+                            />
+                            <button
+                                type="submit"
+                                class="flex-1 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg transition duration-300 flex items-center justify-center gap-2"
+                            >
+                                <i class="fas fa-cart-plus"></i>
+                                <span>Add to Cart</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <div
+                th:unless="${not #lists.isEmpty(products)}"
+                class="text-center py-12"
+            >
+                <i class="fas fa-box-open text-4xl text-gray-400 mb-4"></i>
+                <p class="text-gray-500 text-lg">
+                    No products available at the moment.
+                </p>
+            </div>
+        </section>
 
         <!-- Pagination -->
-        <div class="mt-8 flex justify-center flex-wrap">
-          <a
-            th:if="${currentPage > 1}"
-            th:href="@{/(page=${currentPage - 1})}"
-            class="mx-1 my-1 px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 transition duration-300"
-            >&laquo; Previous</a
-          >
-          <span th:each="pageNum : ${#numbers.sequence(1, totalPages)}">
+        <div class="flex justify-center gap-2">
             <a
-              th:if="${pageNum != currentPage}"
-              th:href="@{/(page=${pageNum})}"
-              th:text="${pageNum}"
-              class="mx-1 my-1 px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 transition duration-300"
-            ></a>
-            <span
-              th:if="${pageNum == currentPage}"
-              th:text="${pageNum}"
-              class="mx-1 my-1 px-4 py-2 bg-blue-500 text-white rounded"
-            ></span>
-          </span>
-          <a
-            th:if="${currentPage < totalPages}"
-            th:href="@{/(page=${currentPage + 1})}"
-            class="mx-1 my-1 px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 transition duration-300"
-            >Next &raquo;</a
-          >
-        </div>
-      </section>
-    </div>
-
-    <!-- Quick View Product Modal -->
-    <div id="quickViewProductModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50">
-      <div class="relative top-20 mx-auto p-5 border w-11/12 max-w-md shadow-lg rounded-md bg-white">
-        <div class="mt-3">
-          <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">Product Details</h3>
-          <div id="quickViewProductContent" class="mt-2 px-7 py-3">
-            <!-- Product details will be inserted here -->
-          </div>
-          <div class="mt-4">
-            <button
-              id="closeQuickViewModalBtn"
-              type="button"
-              onclick="closeQuickViewModal()"
-              class="w-full px-4 py-2 bg-blue-500 text-white text-base font-medium rounded-md shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300"
+                th:if="${currentPage > 1}"
+                th:href="@{/(page=${currentPage - 1})}"
+                class="px-4 py-2 bg-white text-gray-700 rounded-lg hover:bg-gray-50 border transition duration-300"
             >
-              Close
-            </button>
-          </div>
+                <i class="fas fa-chevron-left mr-1"></i> Previous
+            </a>
+            <span th:each="pageNum : ${#numbers.sequence(1, totalPages)}">
+                <a
+                    th:if="${pageNum != currentPage}"
+                    th:href="@{/(page=${pageNum})}"
+                    th:text="${pageNum}"
+                    class="px-4 py-2 bg-white text-gray-700 rounded-lg hover:bg-gray-50 border transition duration-300"
+                ></a>
+                <span
+                    th:if="${pageNum == currentPage}"
+                    th:text="${pageNum}"
+                    class="px-4 py-2 bg-blue-500 text-white rounded-lg"
+                ></span>
+            </span>
+            <a
+                th:if="${currentPage < totalPages}"
+                th:href="@{/(page=${currentPage + 1})}"
+                class="px-4 py-2 bg-white text-gray-700 rounded-lg hover:bg-gray-50 border transition duration-300"
+            >
+                Next <i class="fas fa-chevron-right ml-1"></i>
+            </a>
         </div>
-      </div>
     </div>
-  </body>
+</body>
 </html>
