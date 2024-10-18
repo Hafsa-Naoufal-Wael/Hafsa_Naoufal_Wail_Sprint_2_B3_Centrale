@@ -18,24 +18,31 @@ import org.thymeleaf.context.WebContext;
 
 import com.centrale.config.ThymeleafConfig;
 import com.centrale.model.entity.Order;
+import com.centrale.model.entity.OrderItem;
 import com.centrale.model.entity.User;
+import com.centrale.model.entity.Client;
 import com.centrale.model.enums.OrderStatus;
 import com.centrale.model.enums.UserRole;
+import com.centrale.repository.ClientRepository;
+import com.centrale.repository.impl.ClientRepositoryImpl;
 import com.centrale.repository.impl.OrderRepositoryImpl;
 import com.centrale.service.OrderService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.centrale.service.ClientService;
 
 public class OrderController extends HttpServlet {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OrderController.class);
     private OrderService orderService;
     private ObjectMapper objectMapper;
+    private ClientService clientService;
 
     @Override
     public void init() throws ServletException {
         super.init();
         orderService = new OrderService(new OrderRepositoryImpl());
         objectMapper = new ObjectMapper();
+        clientService = new ClientService(new ClientRepositoryImpl());
     }
 
     @Override
@@ -59,6 +66,8 @@ public class OrderController extends HttpServlet {
 
         if ("/admin/orders".equals(servletPath)) {
             handleAdminPost(request, response, pathInfo);
+        } else if ("/process".equals(pathInfo)) {
+            processOrder(request, response);
         } else {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
         }
@@ -72,7 +81,65 @@ public class OrderController extends HttpServlet {
             showOrders(request, response);
         }
     }
+private void processOrder(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        UserRole userRole = (UserRole) session.getAttribute("userRole");
 
+        if (user == null || userRole != UserRole.CLIENT) {
+            response.sendRedirect(request.getContextPath() + "/auth/login");
+            return;
+        }
+
+        Client client = clientService.findByUser(user);
+        if (client == null) {
+            response.sendRedirect(request.getContextPath() + "/auth/login");
+            return;
+        }
+
+        List<OrderItem> cartItems = (List<OrderItem>) session.getAttribute("cart");
+        if (cartItems == null || cartItems.isEmpty()) {
+            response.sendRedirect(request.getContextPath() + "/cart?error=Cart+is+empty");
+            return;
+        }
+
+        String shipping_address = request.getParameter("shipping_address");
+        String paymentMethod = request.getParameter("paymentMethod");
+
+        if (shipping_address == null || shipping_address.trim().isEmpty()
+                || paymentMethod == null || paymentMethod.trim().isEmpty()) {
+            response.sendRedirect(request.getContextPath() + "/orders/checkout?error=Invalid+input");
+            return;
+        }
+
+        try {
+            // Trim and validate input
+            shipping_address = shipping_address.trim();
+            paymentMethod = paymentMethod.trim();
+
+            // Update client information
+            client.setDeliveryAddress(shipping_address);
+            client.setPaymentMethod(paymentMethod);
+            clientService.updateClient(client);
+
+            double total = calculateTotal(cartItems);
+            Order order = orderService.createOrder(client, cartItems, shipping_address, paymentMethod);
+            session.removeAttribute("cart");
+            session.setAttribute("cartCount", 0);
+            response.sendRedirect(request.getContextPath() + "/orders/detail?id=" + order.getId()
+                    + "&success=Order+placed+successfully");
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.sendRedirect(request.getContextPath() + "/orders/checkout?error=Order+processing+failed:+" + e.getMessage());
+        }
+    }
+
+    private double calculateTotal(List<OrderItem> cartItems) {
+        return cartItems.stream()
+                .mapToDouble(item -> item.getProduct().getPrice().doubleValue() * item.getQuantity())
+                .sum();
+    }
     private void showOrders(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         LOGGER.info("Admin orders accessed");

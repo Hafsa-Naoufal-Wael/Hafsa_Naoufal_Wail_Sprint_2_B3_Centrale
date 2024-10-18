@@ -3,6 +3,7 @@ package com.centrale.config;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
+import org.thymeleaf.extras.java8time.dialect.Java8TimeDialect;
 
 import javax.servlet.ServletContext;
 
@@ -17,8 +18,10 @@ public class ThymeleafConfig {
             templateResolver.setSuffix(".html");
             templateResolver.setCacheTTLMs(3600000L);
 
-            templateEngine = new TemplateEngine();
-            templateEngine.setTemplateResolver(templateResolver);
+            TemplateEngine engine = new TemplateEngine();
+            engine.addDialect(new Java8TimeDialect());
+            engine.setTemplateResolver(templateResolver);
+            templateEngine = engine;
         }
         return templateEngine;
     }
