@@ -3,8 +3,8 @@ package com.centrale.controller;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
-import java.util.logging.Logger;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -17,15 +17,14 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
 import com.centrale.config.ThymeleafConfig;
-import com.centrale.model.entity.Client;
-import com.centrale.model.entity.User;
 import com.centrale.model.entity.Order;
+import com.centrale.model.entity.User;
 import com.centrale.model.enums.OrderStatus;
 import com.centrale.model.enums.UserRole;
-import com.centrale.repository.impl.OrderRepositoryImpl;
 import com.centrale.repository.impl.ClientRepositoryImpl;
-import com.centrale.service.OrderService;
+import com.centrale.repository.impl.OrderRepositoryImpl;
 import com.centrale.service.ClientService;
+import com.centrale.service.OrderService;
 
 public class ClientController extends HttpServlet {
     private static final Logger LOGGER = Logger.getLogger(ClientController.class.getName());
@@ -83,7 +82,7 @@ private void showOrders(HttpServletRequest request, HttpServletResponse response
         page = Integer.parseInt(request.getParameter("page"));
     }
 
-    List<Order> orders = orderService.getClientOrdersPaginated(currentUser.getId(), page, pageSize, search);
+    List<Order> orders = orderService.searchOrdersPaginated(search, page, pageSize);
     int totalOrders = orderService.getTotalClientOrdersCount(currentUser.getId(), search);
     int totalPages = (int) Math.ceil((double) totalOrders / pageSize);
 

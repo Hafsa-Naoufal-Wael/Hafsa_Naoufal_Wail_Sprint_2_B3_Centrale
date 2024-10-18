@@ -52,8 +52,12 @@ public class ProductService {
     public int getTotalProductCount() {
         return productRepository.count();
     }
-    public List<Product> getProductsPaginated(int page, int pageSize, String search) {
+    public List<Product> searchProductsPaginated(String search, int page, int pageSize) {
         return productRepository.findAllPaginated(page, pageSize, search);
+    }
+
+    public int getTotalProductCount(String search) {
+        return productRepository.getTotalProductCount(search);
     }
 
     public int getTotalProductsCount(String search) {

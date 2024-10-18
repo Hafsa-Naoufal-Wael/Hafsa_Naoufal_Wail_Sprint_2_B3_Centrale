@@ -98,9 +98,8 @@ public class OrderService {
         orderRepository.update(order);
     }
 
-    public List<Order> getClientOrdersPaginated(Long clientId, int page, int pageSize, String search) {
-        int offset = (page - 1) * pageSize;
-        return orderRepository.getClientOrdersPaginated(clientId, offset, pageSize, search);
+    public List<Order> searchOrdersPaginated(String search, int page, int pageSize) {
+        return orderRepository.findAllPaginated(page, pageSize, search);
     }
 
     public int getTotalClientOrdersCount(Long clientId, String search) {

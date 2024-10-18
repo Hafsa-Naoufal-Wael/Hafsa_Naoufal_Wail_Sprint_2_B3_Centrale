@@ -89,23 +89,41 @@ public class OrderController extends HttpServlet {
         String search = request.getParameter("search");
 
         if (request.getParameter("page") != null) {
-            page = Integer.parseInt(request.getParameter("page"));
+            try {
+                page = Integer.parseInt(request.getParameter("page"));
+                if (page < 1) {
+                    page = 1;
+                }
+            } catch (NumberFormatException e) {
+                LOGGER.warn("Invalid page number, defaulting to page 1");
+            }
         }
 
-        List<Order> orders = orderService.getOrdersPaginated(page, pageSize, search);
+        LOGGER.info("Search term: {}", search);
+        LOGGER.info("Fetching orders");
+        List<Order> orders = orderService.searchOrdersPaginated(search, page, pageSize);
+        LOGGER.info("Orders fetched: {}", orders.size());
+
+        LOGGER.info("Getting total order count");
         int totalOrders = orderService.getTotalOrdersCount(search);
-        int totalPages = (int) Math.ceil((double) totalOrders / pageSize);
+        LOGGER.info("Total orders: {}", totalOrders);
+
+        LOGGER.info("Total pages: {}", (int) Math.ceil((double) totalOrders / pageSize));
 
         ServletContext servletContext = getServletContext();
         TemplateEngine engine = ThymeleafConfig.getTemplateEngine(servletContext);
 
+        LOGGER.info("Setting up WebContext");
         WebContext context = new WebContext(request, response, servletContext);
         context.setVariable("orders", orders);
         context.setVariable("currentPage", page);
-        context.setVariable("totalPages", totalPages);
+        context.setVariable("totalPages", (int) Math.ceil((double) totalOrders / pageSize));
         context.setVariable("pageTitle", "Manage Orders");
+        context.setVariable("search", search);
 
+        LOGGER.info("Processing template");
         engine.process("admin/manage-orders", context, response.getWriter());
+        LOGGER.info("Template processed");
     }
 
     private void handleAdminPost(HttpServletRequest request, HttpServletResponse response, String pathInfo)

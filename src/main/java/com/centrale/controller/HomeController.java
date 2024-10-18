@@ -32,6 +32,8 @@ public class HomeController extends HttpServlet {
             throws ServletException, IOException {
         int page = 1;
         String pageParam = request.getParameter("page");
+        String search = request.getParameter("search");
+
         if (pageParam != null && !pageParam.isEmpty()) {
             try {
                 page = Integer.parseInt(pageParam);
@@ -43,8 +45,8 @@ public class HomeController extends HttpServlet {
             }
         }
 
-        List<Product> products = productService.getAllProductsPaginated(page, PAGE_SIZE);
-        int totalProducts = productService.getTotalProductCount();
+        List<Product> products = productService.searchProductsPaginated(search, page, PAGE_SIZE);
+        int totalProducts = productService.getTotalProductCount(search);
         int totalPages = (int) Math.ceil((double) totalProducts / PAGE_SIZE);
 
         TemplateEngine templateEngine = ThymeleafConfig.getTemplateEngine(getServletContext());
@@ -55,6 +57,7 @@ public class HomeController extends HttpServlet {
         context.setVariable("products", products);
         context.setVariable("currentPage", page);
         context.setVariable("totalPages", totalPages);
+        context.setVariable("search", search);
 
         String result = templateEngine.process("layouts/main-layout", context);
 

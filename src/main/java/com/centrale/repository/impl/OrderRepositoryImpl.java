@@ -90,39 +90,39 @@ public class OrderRepositoryImpl implements OrderRepository {
     }
 
     @Override
-    public List<Order> findAllPaginated(int page, int pageSize, String searchTerm) {
+    public List<Order> findAllPaginated(int page, int pageSize, String search) {
         Session session = sessionFactory.openSession();
         try {
             String hql = "FROM Order o WHERE 1=1";
-            if (searchTerm != null && !searchTerm.isEmpty()) {
-                hql += " AND (o.id LIKE :searchTerm OR o.client.name LIKE :searchTerm OR o.status LIKE :searchTerm)";
+            if (search != null && !search.isEmpty()) {
+                hql += " AND (CAST(o.id AS string) LIKE :search OR LOWER(o.client.user.firstName) LIKE :search OR LOWER(o.client.user.lastName) LIKE :search OR LOWER(CAST(o.status AS string)) LIKE :search)";
             }
             hql += " ORDER BY o.orderDate DESC";
             
             Query<Order> query = session.createQuery(hql, Order.class);
-            if (searchTerm != null && !searchTerm.isEmpty()) {
-                query.setParameter("searchTerm", "%" + searchTerm + "%");
+            if (search != null && !search.isEmpty()) {
+                query.setParameter("search", "%" + search.toLowerCase() + "%");
             }
             query.setFirstResult((page - 1) * pageSize);
             query.setMaxResults(pageSize);
             
-            return query.list();
+            return query.getResultList();
         } finally {
             session.close();
         }
     }
 
     @Override
-    public int getTotalOrderCount(String searchTerm) {
+    public int getTotalOrderCount(String search) {
         Session session = sessionFactory.openSession();
         try {
             String hql = "SELECT COUNT(o) FROM Order o WHERE 1=1";
-            if (searchTerm != null && !searchTerm.isEmpty()) {
-                hql += " AND (o.id LIKE :searchTerm OR o.client.name LIKE :searchTerm OR o.status LIKE :searchTerm)";
+            if (search != null && !search.isEmpty()) {
+                hql += " AND (CAST(o.id AS string) LIKE :search OR LOWER(o.client.user.firstName) LIKE :search OR LOWER(o.client.user.lastName) LIKE :search OR LOWER(CAST(o.status AS string)) LIKE :search)";
             }
             Query<Long> query = session.createQuery(hql, Long.class);
-            if (searchTerm != null && !searchTerm.isEmpty()) {
-                query.setParameter("searchTerm", "%" + searchTerm + "%");
+            if (search != null && !search.isEmpty()) {
+                query.setParameter("search", "%" + search.toLowerCase() + "%");
             }
             return query.uniqueResult().intValue();
         } finally {

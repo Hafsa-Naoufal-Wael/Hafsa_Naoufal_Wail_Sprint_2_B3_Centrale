@@ -104,8 +104,8 @@ public class ProductController extends HttpServlet {
             page = Integer.parseInt(request.getParameter("page"));
         }
 
-        List<Product> products = productService.getProductsPaginated(page, pageSize, search);
-        int totalProducts = productService.getTotalProductsCount(search);
+        List<Product> products = productService.searchProductsPaginated(search, page, pageSize);
+        int totalProducts = productService.getTotalProductCount(search);
         int totalPages = (int) Math.ceil((double) totalProducts / pageSize);
 
         ServletContext servletContext = getServletContext();

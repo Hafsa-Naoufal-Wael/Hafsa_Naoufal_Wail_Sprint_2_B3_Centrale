@@ -74,10 +74,11 @@
 
       <!-- Search Bar and Cart Button -->
       <div class="mb-8 flex flex-col sm:flex-row justify-center items-center">
-        <form action="#" method="get" class="flex items-center mb-4 sm:mb-0 sm:mr-4 w-full sm:w-auto">
+        <form th:action="@{/}" method="get" class="flex items-center mb-4 sm:mb-0 sm:mr-4 w-full sm:w-auto">
           <input
             type="text"
             name="search"
+            th:value="${param.search}"
             placeholder="Search products..."
             class="w-full sm:w-64 px-4 py-2 rounded-l-lg border-t border-b border-l text-gray-800 border-gray-200 bg-white focus:outline-none focus:border-blue-500"
           />
@@ -214,4 +215,3 @@
     </div>
   </body>
 </html>
-
