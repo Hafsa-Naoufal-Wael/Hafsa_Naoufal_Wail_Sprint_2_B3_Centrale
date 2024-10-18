@@ -98,10 +98,46 @@ L'application utilise une architecture en couches avec :
 3. Déployez le fichier WAR généré sur Tomcat
 
 ## Captures d'écran
+**Diagramme de Classes UML**
 
-figma et jira screen shots ..
+Diagramme de classes UML représentant la structure du système, incluant les entités principales comme les utilisateurs, produits,
+commandes et leurs relations. Ce modèle sert à définir les propriétés et les méthodes associées à chaque classe.
+
+![Diagramme de Classes UML](src/main/webapp/assets/img/Diagclasse.PNG)
+
+**Diagramme d'Utilisation UML**
+
+Diagramme des cas d'utilisation illustrant les interactions possibles entre les différents acteurs (utilisateurs et administrateurs) et le système. 
+Chaque cas d'utilisation détaille une fonctionnalité principale du système.
+
+![Diagramme d'Utilisation UML](src/main/webapp/assets/img/Diagcase.PNG)
+
+**Jira**
+
+Capture d'écran de l'outil Jira utilisé pour la gestion des tâches du projet. Chaque tâche est catégorisée et suivie avec des statuts comme 'À faire', 'En cours', et 'Terminé'.
+
+![Jira](src/main/webapp/assets/img/jira.PNG)
+
+**Figma - Design des produits**
+
+Prototype d'interface utilisateur développé avec Figma, affichant la page des produits. Cette maquette permet de visualiser l'agencement et l'interaction avec les éléments du produit.
+
+![Figma](src/main/webapp/assets/img/products.PNG)
+
+**Figma - Tableau de bord (Dashboard) - Sous Admin**
+
+Aperçu du tableau de bord admin conçu dans Figma, les options de gestion pour l'administrateur, comme la gestion des produits.
+
+![Figma](src/main/webapp/assets/img/dashboard.PNG)
+
+**Figma - Tableau de bord (Dashboard) - Super Admin**
+
+Vue détaillée du tableau de bord,des indicateurs de performance pour suivre l'état du système en temps réel. Ce design met en évidence les options de navigation pour une meilleure gestion des ressources.
+
+![Figma](src/main/webapp/assets/img/dashboard2.PNG)
 
 ## Améliorations futures possibles
+
 
 - Intégration d'un système de paiement en ligne
 - Implémentation d'un système de notifications par email
