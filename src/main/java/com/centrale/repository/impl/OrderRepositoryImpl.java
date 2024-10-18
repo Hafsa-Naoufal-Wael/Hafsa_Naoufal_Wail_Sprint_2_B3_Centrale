@@ -20,7 +20,14 @@ public class OrderRepositoryImpl implements OrderRepository {
     public OrderRepositoryImpl() {
         this.sessionFactory = HibernateUtil.getSessionFactory();
     }
-
+    @Override
+    public void update(Order order) {
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            session.update(order);
+            session.getTransaction().commit();
+        }
+    }
     @Override
     public Order save(Order order) {
         try (Session session = sessionFactory.openSession()) {
@@ -165,5 +172,46 @@ public class OrderRepositoryImpl implements OrderRepository {
             session.close();
         }
     }
-    
+    @Override
+    public List<Order> getClientOrdersPaginated(Long clientId, int offset, int pageSize, String search) {
+        Session session = sessionFactory.openSession();
+        try {
+            String hql = "FROM Order o WHERE o.client.id = :clientId";
+            if (search != null && !search.isEmpty()) {
+                hql += " AND (o.id LIKE :search OR o.status LIKE :search)";
+            }
+            hql += " ORDER BY o.orderDate DESC";
+            
+            Query<Order> query = session.createQuery(hql, Order.class);
+            query.setParameter("clientId", clientId);
+            if (search != null && !search.isEmpty()) {
+                query.setParameter("search", "%" + search + "%");
+            }
+            query.setFirstResult(offset);
+            query.setMaxResults(pageSize);
+            
+            return query.list();
+        } finally {
+            session.close();
+        }
+    }
+
+    @Override
+    public int getTotalClientOrdersCount(Long clientId, String search) {
+        Session session = sessionFactory.openSession();
+        try {
+            String hql = "SELECT COUNT(o) FROM Order o WHERE o.client.id = :clientId";
+            if (search != null && !search.isEmpty()) {
+                hql += " AND (o.id LIKE :search OR o.status LIKE :search)";
+            }
+            Query<Long> query = session.createQuery(hql, Long.class);
+            query.setParameter("clientId", clientId);
+            if (search != null && !search.isEmpty()) {
+                query.setParameter("search", "%" + search + "%");
+            }
+            return query.uniqueResult().intValue();
+        } finally {
+            session.close();
+        }
+    }
 }

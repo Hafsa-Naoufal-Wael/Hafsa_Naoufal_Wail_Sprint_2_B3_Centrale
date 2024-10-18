@@ -3,27 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <title th:text="${pageTitle}"></title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-    <div th:fragment="content">
-        <h1 class="text-3xl font-bold mb-4">Admin Dashboard</h1>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="bg-white p-4 rounded shadow">
-                <h2 class="text-xl font-semibold mb-2">Recent Orders</h2>
-                <ul>
-                    <li th:each="order : ${recentOrders}" class="mb-2">
-                        <span th:text="${'Order #' + order.id}"></span>
-                        <span th:text="${' - ' + order.status}" class="text-gray-600"></span>
-                    </li>
-                </ul>
-                <a href="/admin/orders" class="text-blue-500 hover:underline">View All Orders</a>
-            </div>
-            <div class="bg-white p-4 rounded shadow">
-                <h2 class="text-xl font-semibold mb-2">Product Statistics</h2>
-                <p th:text="${'Total Products: ' + totalProducts}"></p>
-                <p th:text="${'Low Stock Products: ' + lowStockProducts}"></p>
-                <a href="/admin/products" class="text-blue-500 hover:underline">Manage Products</a>
-            </div>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold mb-8">Welcome to Admin Dashboard</h1>
+        
+        <div class="grid grid-cols-2 gap-6">
+            <a th:href="@{/admin/orders}" class="bg-purple-500 text-white p-6 rounded-lg shadow hover:bg-purple-600 transition duration-300">
+                <h2 class="text-xl font-semibold mb-2">Manage Orders</h2>
+                <p>View and manage customer orders</p>
+            </a>
+            <a th:if="${admin != null && admin.accessLevel == 2}" th:href="@{/admin/users}" class="bg-indigo-500 text-white p-6 rounded-lg shadow hover:bg-indigo-600 transition duration-300">
+                <h2 class="text-xl font-semibold mb-2">Manage Users</h2>
+                <p>Manage user accounts and permissions</p>
+            </a>
+            <a th:href="@{/admin/products}" class="bg-pink-500 text-white p-6 rounded-lg shadow hover:bg-pink-600 transition duration-300">
+                <h2 class="text-xl font-semibold mb-2">Manage Products</h2>
+                <p>Add, edit, or remove products from the store</p>
+            </a>
+            <a th:href="@{/}" class="bg-green-500 text-white p-6 rounded-lg shadow hover:bg-teal-600 transition duration-300">
+                <h2 class="text-xl font-semibold mb-2">Home</h2>
+                <p>Go to home page</p>
+            </a>
         </div>
     </div>
 </body>

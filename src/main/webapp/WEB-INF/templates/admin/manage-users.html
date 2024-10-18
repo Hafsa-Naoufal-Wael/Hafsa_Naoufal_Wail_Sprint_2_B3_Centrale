@@ -1,35 +1,562 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title th:text="${pageTitle}"></title>
-</head>
-<body>
-    <div th:fragment="content">
-        <h1 class="text-3xl font-bold mb-4">Manage Users</h1>
-        <table class="w-full bg-white shadow-md rounded mb-4">
-            <thead>
-                <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-                    <th class="py-3 px-6 text-left">ID</th>
-                    <th class="py-3 px-6 text-left">Name</th>
-                    <th class="py-3 px-6 text-left">Email</th>
-                    <th class="py-3 px-6 text-left">Role</th>
-                    <th class="py-3 px-6 text-center">Actions</th>
-                </tr>
-            </thead>
-            <tbody class="text-gray-600 text-sm font-light">
-                <tr th:each="user : ${users}" class="border-b border-gray-200 hover:bg-gray-100">
-                    <td th:text="${user.id}" class="py-3 px-6 text-left whitespace-nowrap"></td>
-                    <td th:text="${user.name}" class="py-3 px-6 text-left"></td>
-                    <td th:text="${user.email}" class="py-3 px-6 text-left"></td>
-                    <td th:text="${user.role}" class="py-3 px-6 text-left"></td>
-                    <td class="py-3 px-6 text-center">
-                        <a th:href="@{/admin/users/edit(id=${user.id})}" class="text-blue-500 hover:text-blue-700 mr-2">Edit</a>
-                        <a th:href="@{/admin/users/delete(id=${user.id})}" class="text-red-500 hover:text-red-700" onclick="return confirm('Are you sure you want to delete this user?')">Delete</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8">
+      <h1 class="text-3xl font-bold mb-4">Manage Users</h1>
+
+      <!-- Search form and Create User button -->
+      <div class="flex justify-between items-center mb-4">
+        <form th:action="@{/admin/users}" method="get" class="flex">
+          <input
+            type="text"
+            name="search"
+            th:value="${param.search}"
+            placeholder="Search users"
+            class="px-4 py-2 border rounded-l"
+          />
+          <button
+            type="submit"
+            class="bg-blue-500 text-white px-4 py-2 rounded-r"
+          >
+            Search
+          </button>
+        </form>
+        <button
+          onclick="openCreateModal()"
+          class="bg-green-500 text-white px-4 py-2 rounded"
+        >
+          Create User
+        </button>
+      </div>
+
+      <!-- Users table -->
+      <table class="w-full bg-white shadow-md rounded mb-4">
+        <thead>
+          <tr
+            class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal"
+          >
+            <th class="py-3 px-6 text-left">ID</th>
+            <th class="py-3 px-6 text-left">Name</th>
+            <th class="py-3 px-6 text-left">Email</th>
+            <th class="py-3 px-6 text-left">Role</th>
+            <th class="py-3 px-6 text-center">Actions</th>
+          </tr>
+        </thead>
+        <tbody class="text-gray-600 text-sm font-light">
+          <tr
+            th:each="user : ${users}"
+            class="border-b border-gray-200 hover:bg-gray-100"
+          >
+            <td
+              th:text="${user.id}"
+              class="py-3 px-6 text-left whitespace-nowrap"
+            ></td>
+            <td
+              th:text="${user.firstName + ' ' + user.lastName}"
+              class="py-3 px-6 text-left"
+            ></td>
+            <td th:text="${user.email}" class="py-3 px-6 text-left"></td>
+            <td th:text="${user.role}" class="py-3 px-6 text-left"></td>
+            <td class="py-3 px-6 text-center">
+              <th:block th:if="${admin.accessLevel == 2}">
+                <button
+                  th:onclick="'openEditModal(' + ${user.id} + ')'"
+                  class="text-blue-500 hover:text-blue-700 mr-2"
+                >
+                  Edit
+                </button>
+                <button
+                  th:onclick="'deleteUser(' + ${user.id} + ')'"
+                  class="text-red-500 hover:text-red-700"
+                >
+                  Delete
+                </button>
+              </th:block>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Pagination -->
+      <div class="mt-4 flex justify-center">
+        <a
+          th:if="${currentPage > 1}"
+          th:href="@{/admin/users(page=${currentPage - 1}, search=${param.search})}"
+          class="mx-2 px-4 py-2 bg-gray-200 text-gray-700 rounded"
+          >&laquo; Previous</a
+        >
+        <span th:each="pageNum : ${#numbers.sequence(1, totalPages)}">
+          <a
+            th:if="${pageNum != currentPage}"
+            th:href="@{/admin/users(page=${pageNum}, search=${param.search})}"
+            th:text="${pageNum}"
+            class="mx-2 px-4 py-2 bg-gray-200 text-gray-700 rounded"
+          ></a>
+          <span
+            th:if="${pageNum == currentPage}"
+            th:text="${pageNum}"
+            class="mx-2 px-4 py-2 bg-blue-500 text-white rounded"
+          ></span>
+        </span>
+        <a
+          th:if="${currentPage < totalPages}"
+          th:href="@{/admin/users(page=${currentPage + 1}, search=${param.search})}"
+          class="mx-2 px-4 py-2 bg-gray-200 text-gray-700 rounded"
+          >Next &raquo;</a
+        >
+      </div>
     </div>
-</body>
+
+    <!-- Create User Modal -->
+    <div
+      id="createUserModal"
+      class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden"
+    >
+      <div
+        class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white"
+      >
+        <h3 class="text-lg font-medium leading-6 text-gray-900 mb-4">
+          Create User
+        </h3>
+        <form id="createUserForm">
+          <div class="mb-4">
+            <label
+              for="createFirstName"
+              class="block text-gray-700 text-sm font-bold mb-2"
+              >First Name</label
+            >
+            <input
+              type="text"
+              id="createFirstName"
+              name="firstName"
+              class="w-full p-2 border rounded"
+            />
+          </div>
+          <div class="mb-4">
+            <label
+              for="createLastName"
+              class="block text-gray-700 text-sm font-bold mb-2"
+              >Last Name</label
+            >
+            <input
+              type="text"
+              id="createLastName"
+              name="lastName"
+              class="w-full p-2 border rounded"
+            />
+          </div>
+          <div class="mb-4">
+            <label
+              for="createEmail"
+              class="block text-gray-700 text-sm font-bold mb-2"
+              >Email</label
+            >
+            <input
+              type="email"
+              id="createEmail"
+              name="email"
+              class="w-full p-2 border rounded"
+            />
+          </div>
+          <div class="mb-4">
+            <label
+              for="createPassword"
+              class="block text-gray-700 text-sm font-bold mb-2"
+              >Password</label
+            >
+            <input
+              type="password"
+              id="createPassword"
+              name="password"
+              class="w-full p-2 border rounded"
+            />
+          </div>
+          <div class="mb-4">
+            <label
+              for="createRole"
+              class="block text-gray-700 text-sm font-bold mb-2"
+              >Role</label
+            >
+            <select
+              id="createRole"
+              name="role"
+              class="w-full p-2 border rounded"
+            >
+              <option value="CLIENT">Client</option>
+              <option value="ADMIN">Admin</option>
+            </select>
+          </div>
+          <div id="createAdminFields" class="hidden">
+            <div class="mb-4">
+              <label
+                for="createAccessLevel"
+                class="block text-gray-700 text-sm font-bold mb-2"
+                >Access Level</label
+              >
+              <input
+                type="number"
+                id="createAccessLevel"
+                name="accessLevel"
+                min="1"
+                max="2"
+                class="w-full p-2 border rounded"
+              />
+            </div>
+          </div>
+          <div id="createClientFields" class="hidden">
+            <div class="mb-4">
+              <label
+                for="createAddress"
+                class="block text-gray-700 text-sm font-bold mb-2"
+                >Address</label
+              >
+              <input
+                type="text"
+                id="createAddress"
+                name="address"
+                class="w-full p-2 border rounded"
+              />
+            </div>
+            <div class="mb-4">
+              <label
+                for="createPhoneNumber"
+                class="block text-gray-700 text-sm font-bold mb-2"
+                >Phone Number</label
+              >
+              <input
+                type="tel"
+                id="createPhoneNumber"
+                name="phoneNumber"
+                class="w-full p-2 border rounded"
+              />
+            </div>
+          </div>
+          <div class="flex justify-end">
+            <button
+              type="button"
+              onclick="closeCreateModal()"
+              class="px-4 py-2 bg-gray-200 text-gray-800 rounded mr-2"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              class="px-4 py-2 bg-blue-500 text-white rounded"
+            >
+              Create User
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Edit User Modal -->
+    <div
+      id="editUserModal"
+      class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden"
+    >
+      <div
+        class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white"
+      >
+        <h3 class="text-lg font-medium leading-6 text-gray-900 mb-4">
+          Edit User
+        </h3>
+        <form id="editUserForm">
+          <input type="hidden" id="editUserId" name="id" />
+          <div class="mb-4">
+            <label
+              for="editFirstName"
+              class="block text-gray-700 text-sm font-bold mb-2"
+              >First Name</label
+            >
+            <input
+              type="text"
+              id="editFirstName"
+              name="firstName"
+              class="w-full p-2 border rounded"
+            />
+          </div>
+          <div class="mb-4">
+            <label
+              for="editLastName"
+              class="block text-gray-700 text-sm font-bold mb-2"
+              >Last Name</label
+            >
+            <input
+              type="text"
+              id="editLastName"
+              name="lastName"
+              class="w-full p-2 border rounded"
+            />
+          </div>
+          <div class="mb-4">
+            <label
+              for="editEmail"
+              class="block text-gray-700 text-sm font-bold mb-2"
+              >Email</label
+            >
+            <input
+              type="email"
+              id="editEmail"
+              name="email"
+              class="w-full p-2 border rounded"
+            />
+          </div>
+          <div class="mb-4">
+            <label
+              for="editRole"
+              class="block text-gray-700 text-sm font-bold mb-2"
+              >Role</label
+            >
+            <select id="editRole" name="role" class="w-full p-2 border rounded">
+              <option value="CLIENT">Client</option>
+              <option value="ADMIN">Admin</option>
+            </select>
+          </div>
+          <div id="editAdminFields" class="hidden">
+            <div class="mb-4">
+              <label
+                for="editAccessLevel"
+                class="block text-gray-700 text-sm font-bold mb-2"
+                >Access Level</label
+              >
+              <input
+                type="number"
+                id="editAccessLevel"
+                name="accessLevel"
+                min="1"
+                max="2"
+                class="w-full p-2 border rounded"
+              />
+            </div>
+          </div>
+          <div id="editClientFields" class="hidden">
+            <div class="mb-4">
+              <label
+                for="editAddress"
+                class="block text-gray-700 text-sm font-bold mb-2"
+                >Address</label
+              >
+              <input
+                type="text"
+                id="editAddress"
+                name="address"
+                class="w-full p-2 border rounded"
+              />
+            </div>
+            <div class="mb-4">
+              <label
+                for="editPhoneNumber"
+                class="block text-gray-700 text-sm font-bold mb-2"
+                >Phone Number</label
+              >
+              <input
+                type="tel"
+                id="editPhoneNumber"
+                name="phoneNumber"
+                class="w-full p-2 border rounded"
+              />
+            </div>
+          </div>
+          <div class="flex justify-end">
+            <button
+              type="button"
+              onclick="closeEditModal()"
+              class="px-4 py-2 bg-gray-200 text-gray-800 rounded mr-2"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              class="px-4 py-2 bg-blue-500 text-white rounded"
+            >
+              Update User
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script th:inline="javascript">
+      /*<![CDATA[*/
+      const contextPath = /*[[@{/}]]*/ "";
+
+      function openCreateModal() {
+        document.getElementById("createUserModal").classList.remove("hidden");
+      }
+
+      function closeCreateModal() {
+        document.getElementById("createUserModal").classList.add("hidden");
+        document.getElementById("createUserForm").reset();
+      }
+
+      function openEditModal(userId) {
+        fetch(`${contextPath}admin/users/get?id=${userId}`)
+          .then((response) => response.json())
+          .then((user) => {
+            document.getElementById("editUserId").value = user.id;
+            document.getElementById("editFirstName").value = user.firstName;
+            document.getElementById("editLastName").value = user.lastName;
+            document.getElementById("editEmail").value = user.email;
+            document.getElementById("editRole").value = user.role;
+            if (user.role === "ADMIN") {
+              document.getElementById("editAccessLevel").value =
+                user.accessLevel;
+              document
+                .getElementById("editAdminFields")
+                .classList.remove("hidden");
+              document
+                .getElementById("editClientFields")
+                .classList.add("hidden");
+            } else if (user.role === "CLIENT") {
+              document.getElementById("editAddress").value = user.address;
+              document.getElementById("editPhoneNumber").value =
+                user.phoneNumber;
+              document
+                .getElementById("editClientFields")
+                .classList.remove("hidden");
+              document
+                .getElementById("editAdminFields")
+                .classList.add("hidden");
+            }
+            document.getElementById("editUserModal").classList.remove("hidden");
+          });
+      }
+
+      function closeEditModal() {
+        document.getElementById("editUserModal").classList.add("hidden");
+      }
+
+      document
+        .getElementById("createUserForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          const formData = new FormData(this);
+          const jsonData = Object.fromEntries(formData.entries());
+          console.log("Form data:", jsonData);
+
+          fetch(`${contextPath}admin/users/add`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: new URLSearchParams(jsonData).toString(),
+          })
+            .then((response) => {
+              if (!response.ok) {
+                return response.text().then((text) => {
+                  throw new Error(text);
+                });
+              }
+              return response.text();
+            })
+            .then(() => {
+              closeCreateModal();
+              location.reload();
+            })
+            .catch((error) => {
+              console.error("Error adding user:", error);
+              alert("Error adding user: " + error.message);
+            });
+        });
+
+      document
+        .getElementById("editUserForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          const formData = new FormData(this);
+          const jsonData = Object.fromEntries(formData.entries());
+          console.log("Edit form data:", jsonData);
+
+          fetch(`${contextPath}admin/users/edit`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: new URLSearchParams(jsonData).toString(),
+          })
+            .then((response) => {
+              if (!response.ok) {
+                return response.text().then((text) => {
+                  throw new Error(text);
+                });
+              }
+              return response.text();
+            })
+            .then(() => {
+              closeEditModal();
+              location.reload();
+            })
+            .catch((error) => {
+              console.error("Error updating user:", error);
+              alert("Error updating user: " + error.message);
+            });
+        });
+
+      function deleteUser(userId) {
+        if (confirm("Are you sure you want to delete this user?")) {
+          fetch(`${contextPath}admin/users/delete?id=${userId}`, {
+            method: "POST",
+          })
+            .then((response) => {
+              if (response.ok) {
+                location.reload();
+              } else if (response.status === 409) {
+                return response.text().then((text) => {
+                  throw new Error(text);
+                });
+              } else {
+                throw new Error("An error occurred while deleting the user.");
+              }
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+              alert(error.message);
+            });
+        }
+      }
+
+      document
+        .getElementById("createRole")
+        .addEventListener("change", function () {
+          if (this.value === "ADMIN") {
+            document
+              .getElementById("createAdminFields")
+              .classList.remove("hidden");
+            document
+              .getElementById("createClientFields")
+              .classList.add("hidden");
+          } else if (this.value === "CLIENT") {
+            document
+              .getElementById("createClientFields")
+              .classList.remove("hidden");
+            document
+              .getElementById("createAdminFields")
+              .classList.add("hidden");
+          }
+        });
+
+      document
+        .getElementById("editRole")
+        .addEventListener("change", function () {
+          if (this.value === "ADMIN") {
+            document
+              .getElementById("editAdminFields")
+              .classList.remove("hidden");
+            document.getElementById("editClientFields").classList.add("hidden");
+          } else if (this.value === "CLIENT") {
+            document
+              .getElementById("editClientFields")
+              .classList.remove("hidden");
+            document.getElementById("editAdminFields").classList.add("hidden");
+          }
+        });
+      /*]]>*/
+    </script>
+  </body>
 </html>

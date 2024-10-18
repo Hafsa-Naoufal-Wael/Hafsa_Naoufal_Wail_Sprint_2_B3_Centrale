@@ -19,5 +19,7 @@ public interface OrderRepository {
     int getTotalOrderCount(String searchTerm);
     List<Order> findByClientPaginated(Client client, int page, int pageSize, String searchTerm);
     int getTotalOrderCountByClient(Client client, String searchTerm);
-    
+    void update(Order order);
+    List<Order> getClientOrdersPaginated(Long clientId, int offset, int pageSize, String search);
+    int getTotalClientOrdersCount(Long clientId, String search);
 }

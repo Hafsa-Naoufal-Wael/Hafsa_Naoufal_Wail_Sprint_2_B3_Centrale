@@ -54,7 +54,13 @@ public class OrderService {
         order.setStatus(OrderStatus.PENDING);
         order.setShippingAddress(shippingAddress);
         order.setPaymentMethod(paymentMethod);
-    
+
+        // Set shipping date (e.g., 3 days from now)
+        order.setShippingDate(LocalDateTime.now().plusDays(3));
+
+        // Set estimated delivery date (e.g., 7 days from now)
+        order.setDeliveryDate(LocalDateTime.now().plusDays(7));
+
         // Set order items and calculate total
         BigDecimal total = BigDecimal.ZERO;
         for (OrderItem item : cartItems) {
@@ -63,16 +69,18 @@ public class OrderService {
         }
         order.setOrderItems(cartItems);
         order.setTotal(total);
-    
+
         return saveOrder(order);
     }
 
     public int getTotalOrderCount(String searchTerm) {
         return orderRepository.getTotalOrderCount(searchTerm);
     }
+
     public int getTotalOrdersCountByClient(Client client) {
         return orderRepository.getTotalOrderCountByClient(client, null);
     }
+
     public List<Order> getOrdersByClientPaginated(Client client, int page, int pageSize, String searchTerm) {
         return orderRepository.findByClientPaginated(client, page, pageSize, searchTerm);
     }
@@ -85,4 +93,29 @@ public class OrderService {
         return orderRepository.findRecentByClient(client, limit);
     }
 
+    public void cancelOrder(Order order) {
+        order.setStatus(OrderStatus.CANCELLED);
+        orderRepository.update(order);
+    }
+
+    public List<Order> getClientOrdersPaginated(Long clientId, int page, int pageSize, String search) {
+        int offset = (page - 1) * pageSize;
+        return orderRepository.getClientOrdersPaginated(clientId, offset, pageSize, search);
+    }
+
+    public int getTotalClientOrdersCount(Long clientId, String search) {
+        return orderRepository.getTotalClientOrdersCount(clientId, search);
+    }
+
+    public List<Order> getOrdersPaginated(int page, int pageSize, String search) {
+        return orderRepository.findAllPaginated(page, pageSize, search);
+    }
+
+    public int getTotalOrdersCount(String search) {
+        return orderRepository.getTotalOrderCount(search);
+    }
+
+    public void updateOrder(Order order) {
+        orderRepository.update(order);
+    }
 }

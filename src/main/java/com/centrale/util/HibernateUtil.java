@@ -10,7 +10,22 @@ import org.slf4j.LoggerFactory;
 
 public class HibernateUtil {
     private static final Logger logger = LoggerFactory.getLogger(HibernateUtil.class);
-    private static final SessionFactory sessionFactory = buildSessionFactory();
+    private static volatile SessionFactory sessionFactory;
+
+    private HibernateUtil() {
+        // Private constructor to prevent instantiation
+    }
+
+    public static SessionFactory getSessionFactory() {
+        if (sessionFactory == null) {
+            synchronized (HibernateUtil.class) {
+                if (sessionFactory == null) {
+                    sessionFactory = buildSessionFactory();
+                }
+            }
+        }
+        return sessionFactory;
+    }
 
     private static SessionFactory buildSessionFactory() {
         try {
@@ -39,12 +54,10 @@ public class HibernateUtil {
         }
     }
 
-    public static SessionFactory getSessionFactory() {
-        return sessionFactory;
-    }
-
     public static void shutdown() {
         logger.info("Closing Hibernate SessionFactory");
-        getSessionFactory().close();
+        if (sessionFactory != null && !sessionFactory.isClosed()) {
+            sessionFactory.close();
+        }
     }
 }

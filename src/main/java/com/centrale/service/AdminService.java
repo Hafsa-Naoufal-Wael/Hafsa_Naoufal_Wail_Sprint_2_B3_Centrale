@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.centrale.model.entity.Admin;
+import com.centrale.model.entity.User;
 import com.centrale.repository.AdminRepository;
 
 public class AdminService {
@@ -29,7 +30,9 @@ public class AdminService {
     public void deleteAdmin(Admin admin) {
         adminRepository.delete(admin);
     }
-
+public Admin findByUser(User user) {
+    return adminRepository.findByUser(user);
+}
     public List<Admin> getAllAdminsPaginated(int page, int size) {
         return adminRepository.findAllPaginated(page, size);
     }

@@ -10,7 +10,7 @@
         <h1 class="text-3xl font-bold mb-8 text-center">Your Shopping Cart</h1>
         <div th:if="${#lists.isEmpty(cartItems)}" class="text-center text-gray-500">
             <p class="mb-4">Your cart is empty.</p>
-            <a href="/" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Continue Shopping</a>
+            <a th:href="@{/}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Continue Shopping</a>
         </div>
         <div th:unless="${#lists.isEmpty(cartItems)}" class="bg-white shadow-md rounded-lg overflow-hidden">
             <table class="w-full">
@@ -49,7 +49,7 @@
                     <span class="font-bold text-lg" th:text="${#numbers.formatCurrency(total)}"></span>
                 </div>
                 <div class="mt-4 flex justify-between">
-                    <a href="/" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">Continue Shopping</a>
+                    <a th:href="@{/}" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">Continue Shopping</a>
                     <a th:href="@{/cart/checkout}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Proceed to Checkout</a>
                 </div>
             </div>

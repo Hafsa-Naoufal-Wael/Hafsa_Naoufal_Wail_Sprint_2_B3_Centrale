@@ -1,6 +1,7 @@
 package com.centrale.repository.impl;
 
 import com.centrale.model.entity.Admin;
+import com.centrale.model.entity.User;
 import com.centrale.repository.AdminRepository;
 import com.centrale.util.HibernateUtil;
 import org.hibernate.Session;
@@ -27,7 +28,14 @@ public class AdminRepositoryImpl implements AdminRepository {
             return admin;
         }
     }
-
+    @Override
+public Admin findByUser(User user) {
+    try (Session session = sessionFactory.openSession()) {
+        Query<Admin> query = session.createQuery("FROM Admin a WHERE a.user = :user", Admin.class);
+        query.setParameter("user", user);
+        return query.uniqueResult();
+    }
+}
     @Override
     public Optional<Admin> findById(Long id) {
         try (Session session = sessionFactory.openSession()) {

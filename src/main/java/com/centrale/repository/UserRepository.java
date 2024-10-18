@@ -11,4 +11,6 @@ public interface UserRepository {
     List<User> findAll();
     void delete(User user);
     Optional<User> findByEmail(String email);
+    List<User> getUsersPaginated(int offset, int pageSize, String search);
+    int getTotalUsersCount(String search);
 }

@@ -42,17 +42,19 @@ CREATE TABLE orders (
     status order_status NOT NULL,
     total NUMERIC(19, 2) NOT NULL,
     shipping_address TEXT,
-    FOREIGN KEY (client_id) REFERENCES clients(id)
+    shipping_date TIMESTAMP,
+    delivery_date TIMESTAMP,
+    FOREIGN KEY (client_id) REFERENCES clients(id) ON DELETE CASCADE
 );
 
 CREATE TABLE order_items (
     id SERIAL PRIMARY KEY,
     order_id INTEGER NOT NULL,
-    product_id INTEGER NOT NULL,
+    product_id INTEGER,
     quantity INTEGER NOT NULL,
     price_at_order NUMERIC(19, 2) NOT NULL,
-    FOREIGN KEY (order_id) REFERENCES orders(id),
-    FOREIGN KEY (product_id) REFERENCES products(id)
+    FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
 );
 
 -- Create indexes

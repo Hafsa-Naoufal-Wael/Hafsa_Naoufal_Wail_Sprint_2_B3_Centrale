@@ -29,14 +29,52 @@ public class ProductRepositoryImpl implements ProductRepository {
             return product;
         }
     }
-
+    @Override
+    public Product update(Product product) {
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            session.update(product);
+            session.getTransaction().commit();
+            return product;
+        }
+    }
     @Override
     public Optional<Product> findById(Long id) {
         try (Session session = sessionFactory.openSession()) {
             return Optional.ofNullable(session.get(Product.class, id));
         }
     }
-
+    @Override
+    public List<Product> findAllPaginated(int page, int pageSize, String search) {
+        try (Session session = sessionFactory.openSession()) {
+            String hql = "FROM Product p WHERE 1=1";
+            if (search != null && !search.isEmpty()) {
+                hql += " AND (p.name LIKE :search OR p.description LIKE :search)";
+            }
+            hql += " ORDER BY p.id";
+            Query<Product> query = session.createQuery(hql, Product.class);
+            if (search != null && !search.isEmpty()) {
+                query.setParameter("search", "%" + search + "%");
+            }
+            query.setFirstResult((page - 1) * pageSize);
+            query.setMaxResults(pageSize);
+            return query.getResultList();
+        }
+    }
+    @Override   
+    public int getTotalProductCount(String search) {
+        try (Session session = sessionFactory.openSession()) {
+            String hql = "SELECT COUNT(*) FROM Product p WHERE 1=1";
+            if (search != null && !search.isEmpty()) {
+                hql += " AND (p.name LIKE :search OR p.description LIKE :search)";
+            }
+            Query<Long> query = session.createQuery(hql, Long.class);
+            if (search != null && !search.isEmpty()) {
+                query.setParameter("search", "%" + search + "%");
+            }
+            return query.uniqueResult().intValue();
+        }
+    }
     @Override
     public List<Product> findAll() {
         try (Session session = sessionFactory.openSession()) {

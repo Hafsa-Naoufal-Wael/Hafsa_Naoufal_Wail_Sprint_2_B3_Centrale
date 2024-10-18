@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.hibernate.Session;
 
 import com.centrale.model.entity.Admin;
+import com.centrale.model.entity.User;
 
 public interface AdminRepository {
     Admin save(Admin admin);
@@ -14,4 +15,5 @@ public interface AdminRepository {
     void delete(Admin admin);
     List<Admin> findAllPaginated(int page, int size);
     Session getSession();
+    Admin findByUser(User user);
 }

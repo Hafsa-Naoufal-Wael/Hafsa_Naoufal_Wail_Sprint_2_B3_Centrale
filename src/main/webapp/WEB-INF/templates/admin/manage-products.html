@@ -1,36 +1,427 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title th:text="${pageTitle}"></title>
-</head>
-<body>
-    <div th:fragment="content">
-        <h1 class="text-3xl font-bold mb-4">Manage Products</h1>
-        <a href="/admin/products/add" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 mb-4 inline-block">Add New Product</a>
-        <table class="w-full bg-white shadow-md rounded mb-4">
-            <thead>
-                <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-                    <th class="py-3 px-6 text-left">ID</th>
-                    <th class="py-3 px-6 text-left">Name</th>
-                    <th class="py-3 px-6 text-left">Price</th>
-                    <th class="py-3 px-6 text-left">Stock</th>
-                    <th class="py-3 px-6 text-center">Actions</th>
-                </tr>
-            </thead>
-            <tbody class="text-gray-600 text-sm font-light">
-                <tr th:each="product : ${products}" class="border-b border-gray-200 hover:bg-gray-100">
-                    <td th:text="${product.id}" class="py-3 px-6 text-left whitespace-nowrap"></td>
-                    <td th:text="${product.name}" class="py-3 px-6 text-left"></td>
-                    <td th:text="${#numbers.formatCurrency(product.price)}" class="py-3 px-6 text-left"></td>
-                    <td th:text="${product.stock}" class="py-3 px-6 text-left"></td>
-                    <td class="py-3 px-6 text-center">
-                        <a th:href="@{/admin/products/edit(id=${product.id})}" class="text-blue-500 hover:text-blue-700 mr-2">Edit</a>
-                        <a th:href="@{/admin/products/delete(id=${product.id})}" class="text-red-500 hover:text-red-700" onclick="return confirm('Are you sure you want to delete this product?')">Delete</a>
-                    </td>
-                </tr>
-            </tbody>
+  <head>
+    <meta charset="UTF-8" />
+    <title th:text="${pageTitle}">Manage Products</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    />
+  </head>
+  <body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8">
+      <h1 class="text-3xl font-bold mb-6 text-gray-800">Manage Products</h1>
+
+      <div class="mb-6 flex justify-between items-center">
+        <button
+          onclick="openAddModal()"
+          class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out"
+        >
+          <i class="fas fa-plus mr-2"></i>Add New Product
+        </button>
+
+        <form th:action="@{/admin/products}" method="get" class="flex">
+          <input
+            type="text"
+            name="search"
+            th:value="${param.search}"
+            placeholder="Search products"
+            class="px-4 py-2 border border-gray-300 rounded-l focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <button
+            type="submit"
+            class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-r transition duration-300 ease-in-out"
+          >
+            <i class="fas fa-search mr-2"></i>Search
+          </button>
+        </form>
+      </div>
+
+      <div class="bg-white shadow-md rounded-lg overflow-hidden">
+        <table class="min-w-full leading-normal">
+          <thead>
+            <tr
+              class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal"
+            >
+              <th class="py-3 px-6 text-left">ID</th>
+              <th class="py-3 px-6 text-left">Name</th>
+              <th class="py-3 px-6 text-left">Price</th>
+              <th class="py-3 px-6 text-left">Stock</th>
+              <th class="py-3 px-6 text-center">Actions</th>
+            </tr>
+          </thead>
+          <tbody class="text-gray-600 text-sm" id="productTableBody">
+            <tr
+              th:each="product : ${products}"
+              class="border-b border-gray-200 hover:bg-gray-100"
+            >
+              <td
+                th:text="${product.id}"
+                class="py-3 px-6 text-left whitespace-nowrap"
+              ></td>
+              <td th:text="${product.name}" class="py-3 px-6 text-left"></td>
+              <td
+                th:text="${#numbers.formatCurrency(product.price)}"
+                class="py-3 px-6 text-left"
+              ></td>
+              <td th:text="${product.stock}" class="py-3 px-6 text-left"></td>
+              <td class="py-3 px-6 text-center">
+                <div class="flex item-center justify-center">
+                  <button
+                    th:onclick="'openViewModal(' + ${product.id} + ')'"
+                    class="text-green-500 hover:text-green-700 mx-2"
+                  >
+                    <i class="fas fa-eye"></i>
+                  </button>
+                  <button
+                    th:onclick="'openEditModal(' + ${product.id} + ')'"
+                    class="text-blue-500 hover:text-blue-700 mx-2"
+                  >
+                    <i class="fas fa-edit"></i>
+                  </button>
+                  <button
+                    th:onclick="'deleteProduct(' + ${product.id} + ')'"
+                    class="text-red-500 hover:text-red-700 mx-2"
+                  >
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
         </table>
+      </div>
     </div>
-</body>
+
+    <!-- Add Product Modal -->
+    <div
+      id="addProductModal"
+      class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden"
+    >
+      <div
+        class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white"
+      >
+        <h3 class="text-lg font-medium leading-6 text-gray-900 mb-4">
+          Add New Product
+        </h3>
+        <form id="addProductForm">
+          <input
+            type="text"
+            name="name"
+            placeholder="Product Name"
+            class="w-full p-2 mb-4 border rounded"
+            required
+          />
+          <input
+            type="number"
+            name="price"
+            placeholder="Price"
+            step="0.01"
+            min="0"
+            class="w-full p-2 mb-4 border rounded"
+            required
+          />
+          <input
+            type="number"
+            name="stock"
+            placeholder="Stock"
+            min="0"
+            class="w-full p-2 mb-4 border rounded"
+            required
+          />
+          <textarea
+            name="description"
+            placeholder="Description"
+            class="w-full p-2 mb-4 border rounded"
+          ></textarea>
+          <div class="flex justify-end">
+            <button
+              type="button"
+              onclick="closeAddModal()"
+              class="px-4 py-2 bg-gray-200 text-gray-800 rounded mr-2"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              class="px-4 py-2 bg-blue-500 text-white rounded"
+            >
+              Add Product
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Edit Product Modal -->
+    <div
+      id="editProductModal"
+      class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden"
+    >
+      <div
+        class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white"
+      >
+        <h3 class="text-lg font-medium leading-6 text-gray-900 mb-4">
+          Edit Product
+        </h3>
+        <form id="editProductForm">
+          <input type="hidden" id="editProductId" name="id" />
+          <input
+            type="text"
+            id="editProductName"
+            name="name"
+            placeholder="Product Name"
+            class="w-full p-2 mb-4 border rounded"
+            required
+          />
+          <input
+            type="number"
+            id="editProductPrice"
+            name="price"
+            placeholder="Price"
+            step="0.01"
+            min="0"
+            class="w-full p-2 mb-4 border rounded"
+            required
+          />
+          <input
+            type="number"
+            id="editProductStock"
+            name="stock"
+            placeholder="Stock"
+            min="0"
+            class="w-full p-2 mb-4 border rounded"
+            required
+          />
+          <textarea
+            id="editProductDescription"
+            name="description"
+            placeholder="Description"
+            class="w-full p-2 mb-4 border rounded"
+          ></textarea>
+          <div class="flex justify-end">
+            <button
+              type="button"
+              onclick="closeEditModal()"
+              class="px-4 py-2 bg-gray-200 text-gray-800 rounded mr-2"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              class="px-4 py-2 bg-blue-500 text-white rounded"
+            >
+              Update Product
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- View Product Modal -->
+    <div
+      id="viewProductModal"
+      class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50"
+    >
+      <div
+        class="relative top-20 mx-auto p-5 border w-11/12 max-w-md shadow-lg rounded-md bg-white"
+      >
+        <div class="mt-3 text-center">
+          <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">
+            Product Details
+          </h3>
+          <div id="viewProductContent" class="mt-2 px-7 py-3">
+            <!-- Product details will be inserted here -->
+          </div>
+          <div class="items-center px-4 py-3">
+            <button
+              id="closeViewModalBtn"
+              type="button"
+              onclick="closeViewModal()"
+              class="px-4 py-2 bg-blue-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script th:inline="javascript">
+      /*<![CDATA[*/
+      const contextPath = /*[[@{/}]]*/ "";
+
+      function openAddModal() {
+        document.getElementById("addProductModal").classList.remove("hidden");
+      }
+
+      function closeAddModal() {
+        document.getElementById("addProductModal").classList.add("hidden");
+        document.getElementById("addProductForm").reset();
+      }
+
+      function openEditModal(productId) {
+        console.log("Opening edit modal for product ID:", productId); // Log product ID
+        fetch(`${contextPath}admin/products/get?id=${productId}`)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Product not found");
+            }
+            return response.json();
+          })
+          .then((product) => {
+            console.log("Received product data:", product); // Log received product data
+            document.getElementById("editProductId").value = product.id;
+            document.getElementById("editProductName").value = product.name;
+            document.getElementById("editProductPrice").value = product.price;
+            document.getElementById("editProductStock").value = product.stock;
+            document.getElementById("editProductDescription").value =
+              product.description;
+            document
+              .getElementById("editProductModal")
+              .classList.remove("hidden");
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+            alert("Error loading product details. Please try again.");
+          });
+      }
+
+      function closeEditModal() {
+        document.getElementById("editProductModal").classList.add("hidden");
+        document.getElementById("editProductForm").reset();
+      }
+
+      document
+        .getElementById("addProductForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          const formData = new FormData(this);
+          const jsonData = Object.fromEntries(formData.entries());
+          console.log("Form data:", jsonData);
+
+          fetch(`${contextPath}admin/products/add`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: new URLSearchParams(jsonData).toString(),
+          })
+            .then((response) => {
+              if (!response.ok) {
+                return response.text().then((text) => {
+                  throw new Error(text);
+                });
+              }
+              return response.text();
+            })
+            .then(() => {
+              closeAddModal();
+              location.reload();
+            })
+            .catch((error) => {
+              console.error("Error adding product:", error);
+              alert("Error adding product: " + error.message);
+            });
+        });
+
+      document
+        .getElementById("editProductForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          const formData = new FormData(this);
+          const jsonData = Object.fromEntries(formData.entries());
+          console.log("Edit form data:", jsonData);
+
+          fetch(`${contextPath}admin/products/update`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: new URLSearchParams(jsonData).toString(),
+          })
+            .then((response) => {
+              if (!response.ok) {
+                return response.text().then((text) => {
+                  throw new Error(text);
+                });
+              }
+              return response.text();
+            })
+            .then(() => {
+              closeEditModal();
+              location.reload();
+            })
+            .catch((error) => {
+              console.error("Error updating product:", error);
+              alert("Error updating product: " + error.message);
+            });
+        });
+
+      function deleteProduct(productId) {
+        if (confirm("Are you sure you want to delete this product?")) {
+          fetch(`${contextPath}admin/products/delete?id=${productId}`, {
+            method: "POST",
+          })
+            .then((response) => {
+              if (response.ok) {
+                location.reload();
+              } else if (response.status === 409) {
+                return response.text().then((text) => {
+                  throw new Error(text);
+                });
+              } else {
+                throw new Error(
+                  "An error occurred while deleting the product."
+                );
+              }
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+              alert(error.message);
+            });
+        }
+      }
+
+      function openViewModal(productId) {
+        console.log("Opening view modal for product ID:", productId);
+        fetch(`${contextPath}admin/products/get?id=${productId}`)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Product not found");
+            }
+            return response.json();
+          })
+          .then((product) => {
+            console.log("Received product data:", product);
+            const content = `
+              <div class="text-left">
+                <p class="text-sm text-gray-500 mb-2">Product ID</p>
+                <p class="text-lg font-semibold mb-4">${product.id}</p>
+                <p class="text-sm text-gray-500 mb-2">Name</p>
+                <p class="text-lg font-semibold mb-4">${product.name}</p>
+                <p class="text-sm text-gray-500 mb-2">Description</p>
+                <p class="text-base mb-4">${product.description}</p>
+                <p class="text-sm text-gray-500 mb-2">Price</p>
+                <p class="text-lg font-semibold text-green-600 mb-4">$${product.price.toFixed(2)}</p>
+                <p class="text-sm text-gray-500 mb-2">Stock</p>
+                <p class="text-lg font-semibold">${product.stock}</p>
+              </div>
+            `;
+            document.getElementById("viewProductContent").innerHTML = content;
+            document.getElementById("viewProductModal").classList.remove("hidden");
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+            alert("Error loading product details. Please try again.");
+          });
+      }
+
+      function closeViewModal() {
+        document.getElementById("viewProductModal").classList.add("hidden");
+      }
+      /*]]>*/
+    </script>
+  </body>
 </html>

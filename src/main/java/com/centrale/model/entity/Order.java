@@ -45,8 +45,14 @@ public class Order {
     private BigDecimal total;
 
     @Column(nullable = true)
-    private String shippingAddress;
+    private String shipping_address;
+    
+    @Column(name = "shipping_date")
+    private LocalDateTime shippingDate;
 
+    @Column(name = "delivery_date")
+    private LocalDateTime deliveryDate;
+    
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderItem> orderItems = new ArrayList<>();
 
@@ -102,11 +108,11 @@ public class Order {
     }
     
     public String getShippingAddress() {
-        return shippingAddress;
+        return shipping_address;
     }
     
-    public void setShippingAddress(String shippingAddress) {
-        this.shippingAddress = shippingAddress;
+    public void setShippingAddress(String shipping_address) {
+        this.shipping_address = shipping_address;
     }
 
     public String getPaymentMethod() {
@@ -115,5 +121,20 @@ public class Order {
 
     public void setPaymentMethod(String paymentMethod) {
         this.paymentMethod = paymentMethod;
+    }
+    public LocalDateTime getShippingDate() {
+        return shippingDate;
+    }
+    
+    public void setShippingDate(LocalDateTime shippingDate) {
+        this.shippingDate = shippingDate;
+    }
+    
+    public LocalDateTime getDeliveryDate() {
+        return deliveryDate;
+    }
+    
+    public void setDeliveryDate(LocalDateTime deliveryDate) {
+        this.deliveryDate = deliveryDate;
     }
 }
