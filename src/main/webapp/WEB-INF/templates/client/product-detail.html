@@ -10,7 +10,7 @@
         <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
             <h1 th:text="${product.name}" class="text-3xl font-bold mb-4"></h1>
             <p th:text="${product.description}" class="mb-4 text-gray-700"></p>
-            <p class="text-2xl font-bold mb-4 text-green-600" th:text="${#numbers.formatCurrency(product.price)}"></p>
+            <p class="text-2xl font-bold mb-4 text-green-600" th:text="${product.price + ' DH'}"></p>
             <form th:action="@{/cart/add}" method="post" class="mt-4">
                 <input type="hidden" name="productId" th:value="${product.id}">
                 <input type="hidden" name="returnUrl" th:value="${#httpServletRequest.requestURI}">

@@ -117,10 +117,10 @@
               Product Description
             </p>
             <p
-              th:text="${#numbers.formatCurrency(product.price)}"
+              th:text="${product.price + ' DH'}"
               class="font-bold mb-4 text-green-600"
             >
-              Price: $0.00
+              Price: 0.00 DH
             </p>
             <div class="flex flex-col sm:flex-row items-center justify-between">
               <button

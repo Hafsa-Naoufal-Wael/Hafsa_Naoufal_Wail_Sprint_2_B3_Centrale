@@ -38,7 +38,7 @@
                         <td class="py-2 px-4" th:text="${order.status}"></td>
                         <td class="py-2 px-4" th:text="${order.shippingDate != null ? #temporals.format(order.shippingDate, 'dd-MM-yyyy HH:mm') : 'N/A'}"></td>
                         <td class="py-2 px-4" th:text="${order.deliveryDate != null ? #temporals.format(order.deliveryDate, 'dd-MM-yyyy HH:mm') : 'N/A'}"></td>
-                        <td class="py-2 px-4" th:text="${#numbers.formatCurrency(order.total)}"></td>
+                        <td class="py-2 px-4" th:text="${order.total} + ' DH'"></td>
                         <td class="py-2 px-4">
                             <form th:action="@{/client/cancel}" method="post" class="inline" th:if="${order.status.name() != 'CANCELLED'}">
                                 <input type="hidden" name="orderId" th:value="${order.id}" />

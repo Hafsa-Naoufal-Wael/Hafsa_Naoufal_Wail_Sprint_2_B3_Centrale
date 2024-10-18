@@ -62,7 +62,7 @@
               ></td>
               <td th:text="${product.name}" class="py-3 px-6 text-left"></td>
               <td
-                th:text="${#numbers.formatCurrency(product.price)}"
+                th:text="${product.price + ' DH'}"
                 class="py-3 px-6 text-left"
               ></td>
               <td th:text="${product.stock}" class="py-3 px-6 text-left"></td>

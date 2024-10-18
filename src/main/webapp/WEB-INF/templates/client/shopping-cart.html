@@ -32,10 +32,10 @@
                             <span th:text="${item.quantity}"></span>
                         </td>
                         <td class="py-3 px-6 text-right">
-                            <span th:text="${#numbers.formatCurrency(item.product.price)}"></span>
+                            <span th:text="${item.product.price} + ' DH'"></span>
                         </td>
                         <td class="py-3 px-6 text-right">
-                            <span th:text="${#numbers.formatCurrency(item.product.price * item.quantity)}"></span>
+                            <span th:text="${item.product.price * item.quantity} + ' DH'"></span>
                         </td>
                         <td class="py-3 px-6 text-center">
                             <a th:href="@{/cart/remove(id=${item.product.id})}" class="text-red-500 hover:text-red-700">Remove</a>
@@ -46,7 +46,7 @@
             <div class="p-4 bg-gray-50">
                 <div class="flex justify-between items-center">
                     <span class="font-bold text-lg">Total:</span>
-                    <span class="font-bold text-lg" th:text="${#numbers.formatCurrency(total)}"></span>
+                    <span class="font-bold text-lg" th:text="${total} + ' DH'"></span>
                 </div>
                 <div class="mt-4 flex justify-between">
                     <a th:href="@{/}" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">Continue Shopping</a>
